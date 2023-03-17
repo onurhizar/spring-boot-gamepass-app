@@ -1,9 +1,7 @@
 package com.onurhizar.gamepass.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.onurhizar.gamepass.model.enums.GameCategory;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +20,6 @@ public class Game {
 
     private String title;
 
+    @Enumerated(EnumType.STRING)
+    private GameCategory category;
 }
