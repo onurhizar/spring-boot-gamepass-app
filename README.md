@@ -4,8 +4,9 @@
 - [x] Game entity & repository connection
 - [x] Populate sample data with CommandLineRunner
 - [ ] Populate sample data with data.sql
-- [x] Categories for Game entity
-- [ ] Hierarchical Categories for Game entity
+- [x] Categories for Game entity (enum)
+- [x] Hierarchical Categories for Game entity (initialized)
+- [ ] Hierarchical Categories for Game entity (finished)
 - [ ] User entity
 - [ ] Roles for user
 - [ ] Auth
