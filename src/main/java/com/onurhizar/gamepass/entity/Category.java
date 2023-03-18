@@ -22,4 +22,6 @@ public class Category {
 
     @OneToOne
     private Category parent;
+
+    private boolean isSuperCategory;
 }

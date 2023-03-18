@@ -1,12 +1,12 @@
 -- Category Data
-INSERT INTO category (id, name, parent_id)
-VALUES ('10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e', 'GAME', null);
+INSERT INTO category (id, name, parent_id, is_super_category)
+VALUES ('10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e', 'GAME', null, true);
 
-INSERT INTO category (id, name, parent_id)
-VALUES ('66403305-972b-42b1-a71a-d7bb2828eebe', 'PUZZLE', '10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e');
+INSERT INTO category (id, name, parent_id, is_super_category)
+VALUES ('66403305-972b-42b1-a71a-d7bb2828eebe', 'PUZZLE', '10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e', false);
 
-INSERT INTO category (id, name, parent_id)
-VALUES ('50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4', 'RACING', '10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e');
+INSERT INTO category (id, name, parent_id, is_super_category)
+VALUES ('50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4', 'RACING', '10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e', false);
 
 
 -- Game Data
