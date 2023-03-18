@@ -20,4 +20,8 @@ public class CategoryService {
     public List<Category> listCategories(){
         return repository.findAll();
     }
+
+    public Category singleCategory(String categoryId){
+        return repository.findById(categoryId).orElseThrow(); // TODO exception handling
+    }
 }

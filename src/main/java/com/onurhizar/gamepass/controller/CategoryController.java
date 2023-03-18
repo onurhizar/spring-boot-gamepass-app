@@ -4,13 +4,14 @@ import com.onurhizar.gamepass.entity.Category;
 import com.onurhizar.gamepass.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/categories")
+@RequestMapping("/category")
 @RequiredArgsConstructor
 public class CategoryController {
 
@@ -19,5 +20,10 @@ public class CategoryController {
     @GetMapping
     public List<Category> listCategories(){
         return categoryService.listCategories();
+    }
+
+    @GetMapping("/{id}")
+    public Category singleCategory(@PathVariable String id){
+        return categoryService.singleCategory(id);
     }
 }
