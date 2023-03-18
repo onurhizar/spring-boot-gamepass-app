@@ -7,6 +7,8 @@
 - [x] Categories for Game entity (enum)
 - [x] Hierarchical Categories for Game entity (initialized)
 - [ ] Hierarchical Categories for Game entity (finished)
+- [x] Exception Handling (initialized)
+- [ ] Exception Handling (finished)
 - [ ] User entity
 - [ ] Roles for user
 - [ ] Auth
