@@ -21,8 +21,8 @@ public class ConfigRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        addGames();
-        addCategories();
+        // addGames();
+        // addCategories();
     }
 
 
