@@ -1,6 +1,5 @@
 package com.onurhizar.gamepass.entity;
 
-import com.onurhizar.gamepass.model.enums.GameCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
