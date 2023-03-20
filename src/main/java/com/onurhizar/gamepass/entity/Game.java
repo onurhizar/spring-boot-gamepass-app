@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Builder
@@ -19,6 +22,7 @@ public class Game {
 
     private String title;
 
-
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
+    private Set<Category> categories = new HashSet<>();
 
 }

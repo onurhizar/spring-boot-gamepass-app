@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Builder
@@ -23,4 +26,11 @@ public class Category {
     private Category parent;
 
     private boolean isSuperCategory;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "categories_games",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id")
+    )
+    private Set<Game> games = new HashSet<>();
 }
