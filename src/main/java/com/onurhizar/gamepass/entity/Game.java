@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,8 +22,7 @@ public class Game {
     private String title;
 
     @ManyToMany(mappedBy = "games", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("games") // TODO : remove later when using DTO
-    @EqualsAndHashCode.Exclude
+    @JsonIgnoreProperties("games")
     private Set<Category> categories = new HashSet<>();
 
 }

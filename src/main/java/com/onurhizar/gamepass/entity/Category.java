@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,7 +31,6 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id")
     )
-    @JsonIgnoreProperties("categories") // TODO : remove later when using DTO
-    @EqualsAndHashCode.Exclude
+    @JsonIgnoreProperties("categories")
     private Set<Game> games = new HashSet<>();
 }

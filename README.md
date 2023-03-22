@@ -10,6 +10,8 @@
 - [x] Exception Handling (initialized)
 - [ ] Exception Handling (finished)
 - [x] ManyToMany Bidirectional relationship on Category-Game
+- [x] DTO for bidirectional entities (initialized)
+- [ ] DTO for bidirectional entities (finished)
 - [ ] User entity
 - [ ] Roles for user
 - [ ] Auth
