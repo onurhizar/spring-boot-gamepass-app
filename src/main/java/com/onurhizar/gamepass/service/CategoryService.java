@@ -1,5 +1,6 @@
 package com.onurhizar.gamepass.service;
 
+import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.Category;
 import com.onurhizar.gamepass.model.response.CategoryResponse;
 import com.onurhizar.gamepass.model.request.PostCategoryRequest;
@@ -20,7 +21,8 @@ public class CategoryService {
      */
     public CategoryResponse addCategory(PostCategoryRequest request){
         // check parent if exists
-        Category parent = repository.findCategoryByName(request.getParentName()).orElseThrow(); // TODO exception
+        Category parent = repository.findCategoryByName(request.getParentName())
+                .orElseThrow(EntityNotFoundException::new);
         Category category = Category.builder()
                 .name(request.getName())
                 .isSuperCategory(false)
@@ -35,13 +37,17 @@ public class CategoryService {
     }
 
     public CategoryResponse singleCategory(String categoryId){
-        Category category = repository.findById(categoryId).orElseThrow(); // TODO exception handling
+        Category category = repository.findById(categoryId)
+                .orElseThrow(EntityNotFoundException::new);
         return CategoryResponse.fromEntity(category);
     }
 
     public CategoryResponse updateCategory(String id, PostCategoryRequest request) {
-        Category category = repository.findById(id).orElseThrow(); // TODO exception handling
-        Category parentCategory = repository.findCategoryByName(request.getParentName()).orElseThrow();
+        Category category = repository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        Category parentCategory = repository.findCategoryByName(request.getParentName())
+                .orElseThrow(EntityNotFoundException::new);
 
         if (category.getId().equals(parentCategory.getId()))
             throw new RuntimeException("a category cannot be its parent, same name is disallowed"); // TODO name
@@ -53,7 +59,8 @@ public class CategoryService {
 
 
     public void deleteCategory(String id) {
-        Category category = repository.findById(id).orElseThrow();
+        Category category = repository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
         if (category.isSuperCategory())
             throw new RuntimeException("Super category cannot be deleted");
         repository.deleteById(id);
