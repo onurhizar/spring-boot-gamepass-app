@@ -9,6 +9,10 @@
 - [ ] Hierarchical Categories for Game entity (finished)
 - [x] Exception Handling (initialized)
 - [ ] Exception Handling (finished)
+- [x] ManyToMany Bidirectional relationship on Category-Game
+- [x] DTO for bidirectional entities (initialized)
+- [ ] DTO for bidirectional entities (finished)
+- [x] CRUD on Category with DTO
 - [ ] User entity
 - [ ] Roles for user
 - [ ] Auth

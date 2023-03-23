@@ -1,6 +1,6 @@
 package com.onurhizar.gamepass.controller;
 
-import com.onurhizar.gamepass.entity.Game;
+import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public List<Game> listGames(){
+    public List<GameResponse> listGames(){
         return gameService.listGames();
     }
 }
