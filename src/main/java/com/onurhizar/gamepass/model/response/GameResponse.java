@@ -1,26 +1,23 @@
 package com.onurhizar.gamepass.model.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.onurhizar.gamepass.model.entity.Category;
 import com.onurhizar.gamepass.model.entity.Game;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
 public class GameResponse {
 
     private String title;
-
-    @JsonIgnoreProperties(value = {"id","games","parent"})
-    private Set<Category> categories;
+    private List<String> categories;
 
     public static GameResponse fromEntity(Game game){
         return new GameResponse(
                 game.getTitle(),
-                game.getCategories()
+                game.getCategories().stream().map(Category::getName).toList()
         );
     }
 }
