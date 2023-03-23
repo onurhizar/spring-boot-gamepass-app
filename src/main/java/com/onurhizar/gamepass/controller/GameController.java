@@ -1,7 +1,6 @@
 package com.onurhizar.gamepass.controller;
 
-import com.onurhizar.gamepass.entity.Game;
-import com.onurhizar.gamepass.model.GameResponse;
+import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

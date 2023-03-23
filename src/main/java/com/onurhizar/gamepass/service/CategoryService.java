@@ -1,14 +1,13 @@
 package com.onurhizar.gamepass.service;
 
-import com.onurhizar.gamepass.entity.Category;
-import com.onurhizar.gamepass.model.CategoryResponse;
+import com.onurhizar.gamepass.model.entity.Category;
+import com.onurhizar.gamepass.model.response.CategoryResponse;
 import com.onurhizar.gamepass.model.request.PostCategoryRequest;
 import com.onurhizar.gamepass.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

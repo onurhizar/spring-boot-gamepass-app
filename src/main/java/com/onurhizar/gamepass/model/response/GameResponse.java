@@ -1,9 +1,8 @@
-package com.onurhizar.gamepass.model;
+package com.onurhizar.gamepass.model.response;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.onurhizar.gamepass.entity.Category;
-import com.onurhizar.gamepass.entity.Game;
+import com.onurhizar.gamepass.model.entity.Category;
+import com.onurhizar.gamepass.model.entity.Game;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

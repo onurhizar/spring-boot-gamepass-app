@@ -1,7 +1,5 @@
 package com.onurhizar.gamepass.config;
 
-import com.onurhizar.gamepass.entity.Category;
-import com.onurhizar.gamepass.entity.Game;
 import com.onurhizar.gamepass.service.CategoryService;
 import com.onurhizar.gamepass.service.GameService;
 import lombok.RequiredArgsConstructor;

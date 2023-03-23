@@ -1,4 +1,4 @@
-package com.onurhizar.gamepass.entity;
+package com.onurhizar.gamepass.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;

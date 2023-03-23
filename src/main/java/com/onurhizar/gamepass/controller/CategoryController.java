@@ -1,7 +1,7 @@
 package com.onurhizar.gamepass.controller;
 
 
-import com.onurhizar.gamepass.model.CategoryResponse;
+import com.onurhizar.gamepass.model.response.CategoryResponse;
 import com.onurhizar.gamepass.model.request.PostCategoryRequest;
 import com.onurhizar.gamepass.service.CategoryService;
 import lombok.RequiredArgsConstructor;
