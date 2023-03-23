@@ -1,12 +1,15 @@
--- User Data
+-- User Data (admin pass is 123456)
 INSERT INTO users (id, email, name, surname, password_hash, role, verified)
-VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'admin@mail.com', 'Onur', 'Hızar', 'hash1', 'ADMIN', true);
+VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'admin@mail.com', 'Onur', 'Hızar',
+        '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'ADMIN', true);
 
 INSERT INTO users (id, email, name, surname, password_hash, role, verified)
-VALUES ('aa59d163-5e7e-4290-b6ac-b901b0b4543a', 'test@mail.com', 'Test', 'User', 'hash2', 'MEMBER', true);
+VALUES ('aa59d163-5e7e-4290-b6ac-b901b0b4543a', 'test@mail.com', 'Test', 'User',
+        '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'MEMBER', true);
 
 INSERT INTO users (id, email, name, surname, password_hash, role, verified)
-VALUES ('102b8078-276a-49e2-b1df-ad41415e32b9', 'guest@mail.com', 'Guest', 'User', 'hash3', 'GUEST', false);
+VALUES ('102b8078-276a-49e2-b1df-ad41415e32b9', 'guest@mail.com', 'Guest', 'User',
+        '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'GUEST', false);
 
 
 -- Category Data

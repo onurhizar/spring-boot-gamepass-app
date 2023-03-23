@@ -13,6 +13,7 @@
 - [x] DTO for bidirectional entities (initialized)
 - [ ] DTO for bidirectional entities (finished)
 - [x] CRUD on Category with DTO
-- [ ] User entity
-- [ ] Roles for user
-- [ ] Auth
+- [x] User entity
+- [x] Roles for user
+- [x] Auth (initialized)
+- [ ] Auth (finished)
