@@ -3,15 +3,18 @@ package com.onurhizar.gamepass.service;
 import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.Category;
 import com.onurhizar.gamepass.model.response.CategoryResponse;
-import com.onurhizar.gamepass.model.request.PostCategoryRequest;
+import com.onurhizar.gamepass.model.request.UpdateCategoryRequest;
 import com.onurhizar.gamepass.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CategoryService {
 
     private final CategoryRepository repository;
@@ -19,14 +22,16 @@ public class CategoryService {
     /**
      * Only adds child category for now, not super parent
      */
-    public CategoryResponse addCategory(PostCategoryRequest request){
+    public CategoryResponse addCategory(String parentId, String name) {
         // check parent if exists
-        Category parent = repository.findCategoryByName(request.getParentName())
+        Category parent = repository.findById(parentId)
                 .orElseThrow(EntityNotFoundException::new);
+        log.info(parent.toString());
         Category category = Category.builder()
-                .name(request.getName())
+                .name(name)
                 .isSuperCategory(false)
                 .parent(parent)
+                .games(new HashSet<>()) // TODO default value is not HashSet? instead of null
                 .build();
         return CategoryResponse.fromEntity(repository.save(category));
     }
@@ -42,7 +47,7 @@ public class CategoryService {
         return CategoryResponse.fromEntity(category);
     }
 
-    public CategoryResponse updateCategory(String id, PostCategoryRequest request) {
+    public CategoryResponse updateCategory(String id, UpdateCategoryRequest request) {
         Category category = repository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
 
