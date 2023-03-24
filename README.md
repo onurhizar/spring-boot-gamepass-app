@@ -16,4 +16,7 @@
 - [x] User entity
 - [x] Roles for user
 - [x] Auth (initialized)
+- [x] Auth (jwt)
 - [ ] Auth (finished)
+- [ ] JWT env variable constants 
+- [ ] Validation
