@@ -18,5 +18,6 @@
 - [x] Auth (initialized)
 - [x] Auth (jwt)
 - [ ] Auth (finished)
+- [x] OpenAPI & Swagger
 - [ ] JWT env variable constants 
 - [ ] Validation
