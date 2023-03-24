@@ -1,8 +1,9 @@
 package com.onurhizar.gamepass.controller;
 
 
+import com.onurhizar.gamepass.model.request.CreateCategoryRequest;
 import com.onurhizar.gamepass.model.response.CategoryResponse;
-import com.onurhizar.gamepass.model.request.PostCategoryRequest;
+import com.onurhizar.gamepass.model.request.UpdateCategoryRequest;
 import com.onurhizar.gamepass.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,9 @@ public class CategoryController {
         return categoryService.listCategories();
     }
 
-    @PostMapping
-    public CategoryResponse addCategory(@RequestBody PostCategoryRequest request){
-        return categoryService.addCategory(request);
+    @PostMapping("{parentId}")
+    public CategoryResponse addCategory(@PathVariable String parentId, @RequestBody CreateCategoryRequest request){
+        return categoryService.addCategory(parentId, request.getName());
     }
 
     @GetMapping("{id}")
@@ -32,7 +33,7 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    public CategoryResponse updateCategory(@PathVariable String id, @RequestBody PostCategoryRequest request){
+    public CategoryResponse updateCategory(@PathVariable String id, @RequestBody UpdateCategoryRequest request){
         return categoryService.updateCategory(id, request);
     }
 

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class PostCategoryRequest {
+public class UpdateCategoryRequest {
     private String name;
     private String parentName;
 }
