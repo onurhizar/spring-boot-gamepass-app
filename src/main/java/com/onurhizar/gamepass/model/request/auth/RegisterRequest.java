@@ -1,7 +1,8 @@
 package com.onurhizar.gamepass.model.request.auth;
 
-import com.onurhizar.gamepass.model.entity.User;
-import com.onurhizar.gamepass.model.enums.UserRole;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Data
@@ -9,9 +10,18 @@ import lombok.*;
 @AllArgsConstructor
 public class RegisterRequest {
 
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String surname;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
+    @Size(min = 6, max = 32)
     private String password;
 
 }

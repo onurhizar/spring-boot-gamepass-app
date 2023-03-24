@@ -25,6 +25,8 @@ public class FilterChainConfig {
             .authorizeHttpRequests()
             .requestMatchers("/login").permitAll()
             .requestMatchers("/register").permitAll()
+            .requestMatchers("/swagger-ui/index.html").permitAll()  // OpenAPI
+            .requestMatchers("/v3/api-docs").permitAll()            // OpenAPI
             .anyRequest().permitAll() //.authenticated()
             .and()
             .sessionManagement()
