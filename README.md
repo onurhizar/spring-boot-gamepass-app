@@ -1,23 +1,16 @@
 # GamePass App
 
 ## Project Steps
-- [x] Game entity & repository connection
-- [x] Populate sample data with CommandLineRunner
+- [x] Game entity and database connection
 - [x] Populate sample data with data.sql
-- [x] Categories for Game entity (enum)
-- [x] Hierarchical Categories for Game entity (initialized)
-- [ ] Hierarchical Categories for Game entity (finished)
+- [x] Hierarchical Categories for Game entity
 - [x] Exception Handling (initialized)
-- [ ] Exception Handling (finished)
 - [x] ManyToMany Bidirectional relationship on Category-Game
-- [x] DTO for bidirectional entities (initialized)
-- [ ] DTO for bidirectional entities (finished)
+- [x] DTO for bidirectional entities
 - [x] CRUD on Category with DTO
 - [x] User entity
-- [x] Roles for user
-- [x] Auth (initialized)
-- [x] Auth (jwt)
-- [ ] Auth (finished)
+- [x] Auth (JWT)
 - [x] OpenAPI & Swagger
 - [ ] JWT env variable constants 
-- [ ] Validation
+- [x] Validation
+- [ ] Unit Testing
