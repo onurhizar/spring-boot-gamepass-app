@@ -11,6 +11,16 @@
 - [x] User entity
 - [x] Auth (JWT)
 - [x] OpenAPI & Swagger
-- [ ] JWT env variable constants 
+- [x] JWT environment variable constants 
 - [x] Validation
 - [ ] Unit Testing
+
+- - -
+
+### Used Environment Variables
+
+```text
+JWT_SECRET_KEY
+JWT_ISSUER
+JWT_EXPIRATION_HOURS
+```

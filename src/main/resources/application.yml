@@ -17,3 +17,9 @@ spring:
   sql:
     init:
       mode: always
+
+jwt:
+  secret: ${JWT_SECRET_KEY}
+  issuer: ${JWT_ISSUER}
+  expiration:
+    hours: ${JWT_EXPIRATION_HOURS}
