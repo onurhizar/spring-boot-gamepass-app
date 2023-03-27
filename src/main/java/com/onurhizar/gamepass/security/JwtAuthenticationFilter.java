@@ -3,6 +3,7 @@ package com.onurhizar.gamepass.security;
 import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.repository.UserRepository;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         final String authorizationHeader = request.getHeader("Authorization");
-        Jws<Claims> jws = jwtService.verifyAuthHeader(authorizationHeader);
-        Authentication authentication = claimsToAuthentication(jws);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        try {
+            Jws<Claims> jws = jwtService.verifyAuthHeader(authorizationHeader);
+            Authentication authentication = claimsToAuthentication(jws);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (ExpiredJwtException e) {
+            // TODO throw specific exception
+            log.warn("JWT is expired");
+        }
 
         filterChain.doFilter(request, response);
     }
