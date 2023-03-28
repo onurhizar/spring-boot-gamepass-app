@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +23,7 @@ public class Game {
 
     @ManyToMany(mappedBy = "games", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("games")
-    private Set<Category> categories = new HashSet<>();
+    @Builder.Default
+    private List<Category> categories = new LinkedList<>();
 
 }

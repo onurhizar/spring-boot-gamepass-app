@@ -31,7 +31,6 @@ public class CategoryService {
                 .name(name)
                 .isSuperCategory(false)
                 .parent(parent)
-                .games(new HashSet<>()) // TODO default value is not HashSet? instead of null
                 .build();
         return CategoryResponse.fromEntity(repository.save(category));
     }

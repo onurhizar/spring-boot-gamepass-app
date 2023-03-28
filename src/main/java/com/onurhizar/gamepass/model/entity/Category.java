@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,5 +32,6 @@ public class Category {
             inverseJoinColumns = @JoinColumn(name = "game_id")
     )
     @JsonIgnoreProperties("categories")
-    private Set<Game> games = new HashSet<>();
+    @Builder.Default
+    private List<Game> games = new LinkedList<>();
 }
