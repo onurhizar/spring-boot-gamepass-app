@@ -13,7 +13,10 @@
 - [x] OpenAPI & Swagger
 - [x] JWT environment variable constants 
 - [x] Validation
-- [ ] Unit Testing
+- [x] Integration Testing (initialized)
+- [ ] Admin or Self authorization logic
+- [ ] Other entities
+- [ ] Business Logic
 
 - - -
 
