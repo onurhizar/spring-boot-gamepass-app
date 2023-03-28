@@ -1,5 +1,6 @@
 package com.onurhizar.gamepass.service;
 
+import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.Game;
 import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.repository.GameRepository;
@@ -17,6 +18,10 @@ public class GameService {
 
     public void addGame(Game game){
         repository.save(game);
+    }
+
+    public Game findGame(String gameId){
+        return repository.findById(gameId).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional

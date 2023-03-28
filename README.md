@@ -14,6 +14,7 @@
 - [x] JWT environment variable constants 
 - [x] Validation
 - [x] Integration Testing (initialized)
+- [x] User Interests : Favorite / Unfavorite Games
 - [ ] Admin or Self authorization logic
 - [ ] Other entities
 - [ ] Business Logic

@@ -1,5 +1,6 @@
 package com.onurhizar.gamepass.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -26,12 +28,22 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String email;
+    @JsonIgnore // TODO : UserDto will be implemented
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.GUEST;
 
     private boolean verified = false;
+
+    @ManyToMany
+    @JoinTable(name = "users_games",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id")
+    )
+    @Builder.Default
+    private List<Game> favoriteGames = new LinkedList<>();
+
 
     // below are for security package
     @Override
