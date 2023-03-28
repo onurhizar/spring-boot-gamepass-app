@@ -13,12 +13,16 @@ import java.security.Key;
 import java.util.*;
 
 @Service
-@Slf4j
 public class JwtService {
+    private final String SECRET_KEY;
+    private final String TOKEN_ISSUER;
+    private final int EXPIRE_HOURS; // token expires in given hours
 
-    private static final String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5275";
-    private static final String TOKEN_ISSUER = "GamePass App";
-    private static final int EXPIRE_HOURS = 10; // token expires in 10 hours
+    public JwtService(SecurityConstants securityConstants){
+        SECRET_KEY = securityConstants.getJWT_SECRET_KEY();
+        TOKEN_ISSUER = securityConstants.getJWT_TOKEN_ISSUER();
+        EXPIRE_HOURS = securityConstants.getJWT_EXPIRATION_HOURS();
+    }
 
     public Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
