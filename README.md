@@ -16,15 +16,17 @@
 - [x] Integration Testing (initialized)
 - [x] User Interests : Favorite / Unfavorite Games
 - [ ] Admin or Self authorization logic
+- [ ] Scheduling
+- [ ] Email Service
 - [ ] Other entities
 - [ ] Business Logic
 
 - - -
 
-### Used Environment Variables
+### Sample Environment Variables
 
 ```text
-JWT_SECRET_KEY
-JWT_ISSUER
-JWT_EXPIRATION_HOURS
+JWT_ISSUER=GamePass
+JWT_EXPIRATION_HOURS=12
+JWT_SECRET_KEY=104E635266556A586E3272367538722F413F4438472B4B6250645367266B5275
 ```
