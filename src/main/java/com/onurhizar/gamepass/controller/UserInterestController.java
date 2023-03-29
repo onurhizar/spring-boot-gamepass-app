@@ -24,4 +24,14 @@ public class UserInterestController {
     public User unfavoriteGame(@PathVariable String userId, @PathVariable String gameId){
         return userService.unfavoriteGame(userId, gameId);
     }
+
+    @PostMapping("/category/{categoryId}/follow")
+    public User followCategory(@PathVariable String userId, @PathVariable String categoryId){
+        return userService.followCategory(userId, categoryId);
+    }
+
+    @PostMapping("/category/{categoryId}/unfollow")
+    public User unfollowCategory(@PathVariable String userId, @PathVariable String categoryId){
+        return userService.unfollowCategory(userId, categoryId);
+    }
 }

@@ -54,3 +54,11 @@ VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'b4dceb23-d2ea-4432-aa7a-c71b4b1
 
 INSERT INTO users_games (user_id, game_id)
 VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'cbf27a05-9abe-40c0-a943-ede62f9ca3de'); -- admin favorites nfs mw
+
+
+-- User Interest : following categories : users_categories join table
+INSERT INTO users_categories (user_id, category_id)
+VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', '66403305-972b-42b1-a71a-d7bb2828eebe'); -- admin follows PUZZLE
+
+INSERT INTO users_categories (user_id, category_id)
+VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', '50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4'); -- admin follows RACING

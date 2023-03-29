@@ -20,7 +20,7 @@ public class GameService {
         repository.save(game);
     }
 
-    public Game findGame(String gameId){
+    public Game findGameById(String gameId){
         return repository.findById(gameId).orElseThrow(EntityNotFoundException::new);
     }
 

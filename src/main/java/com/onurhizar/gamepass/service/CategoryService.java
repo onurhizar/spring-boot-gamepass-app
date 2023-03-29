@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -40,10 +39,10 @@ public class CategoryService {
                 .map(CategoryResponse::fromEntity).toList();
     }
 
-    public CategoryResponse singleCategory(String categoryId){
+    public Category findCategoryById(String categoryId){
         Category category = repository.findById(categoryId)
                 .orElseThrow(EntityNotFoundException::new);
-        return CategoryResponse.fromEntity(category);
+        return category;
     }
 
     public CategoryResponse updateCategory(String id, UpdateCategoryRequest request) {

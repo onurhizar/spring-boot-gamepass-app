@@ -44,6 +44,14 @@ public class User implements UserDetails {
     @Builder.Default
     private List<Game> favoriteGames = new LinkedList<>();
 
+    @ManyToMany
+    @JoinTable(name = "users_categories",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @Builder.Default
+    private List<Category> followedCategories = new LinkedList<>();
+
 
     // below are for security package
     @Override
