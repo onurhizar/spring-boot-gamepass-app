@@ -1,26 +1,58 @@
 package com.onurhizar.gamepass.service;
 
-
 import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.Category;
 import com.onurhizar.gamepass.model.entity.Game;
 import com.onurhizar.gamepass.model.entity.User;
+import com.onurhizar.gamepass.model.enums.UserRole;
+import com.onurhizar.gamepass.model.request.CreateUserRequest;
 import com.onurhizar.gamepass.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService {
 
-    private UserRepository repository;
-    private GameService gameService;
-    private CategoryService categoryService;
+    private final UserRepository repository;
+    private final GameService gameService;
+    private final CategoryService categoryService;
+    private final PasswordEncoder passwordEncoder;
 
-    public void addUser(User user){
-        repository.save(user);
+
+    public User addUser(CreateUserRequest request){
+        User foundUser = repository.findByEmail(request.getEmail()); // check if email exists
+        if (foundUser != null) throw new RuntimeException("email exists"); // TODO make specific exception
+
+        User newUser = User.builder()
+                .name(request.getName())
+                .surname(request.getSurname())
+                .email(request.getEmail())
+                .passwordHash(passwordEncoder.encode(request.getPassword()))
+                .role(UserRole.GUEST) // default
+                .build();
+        return repository.save(newUser);
+    }
+
+    public void deleteUser(String userId){
+        User user = findById(userId);
+        repository.delete(user);
+    }
+
+
+    public User updateUser(String id, CreateUserRequest userDto) {
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        // TODO : a better approach? too much repetition
+        if (userDto.getName() != null) user.setName(userDto.getName());
+        if (userDto.getSurname() != null) user.setSurname(userDto.getSurname());
+        if (userDto.getEmail() != null) user.setEmail(userDto.getEmail());
+        if (userDto.getPassword() != null) {
+            user.setPasswordHash(passwordEncoder.encode(userDto.getPassword()));
+        }
+        return repository.save(user);
     }
 
     public List<User> listUsers(){

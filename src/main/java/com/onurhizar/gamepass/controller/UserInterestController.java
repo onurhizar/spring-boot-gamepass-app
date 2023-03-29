@@ -1,6 +1,7 @@
 package com.onurhizar.gamepass.controller;
 
 import com.onurhizar.gamepass.model.entity.User;
+import com.onurhizar.gamepass.model.response.UserResponse;
 import com.onurhizar.gamepass.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,22 +17,22 @@ public class UserInterestController {
     private final UserService userService;
 
     @PostMapping("/game/{gameId}/favorite")
-    public User favoriteGame(@PathVariable String userId, @PathVariable String gameId){
-        return userService.favoriteGame(userId, gameId);
+    public UserResponse favoriteGame(@PathVariable String userId, @PathVariable String gameId){
+        return UserResponse.fromEntity(userService.favoriteGame(userId, gameId));
     }
 
     @PostMapping("/game/{gameId}/unfavorite")
-    public User unfavoriteGame(@PathVariable String userId, @PathVariable String gameId){
-        return userService.unfavoriteGame(userId, gameId);
+    public UserResponse unfavoriteGame(@PathVariable String userId, @PathVariable String gameId){
+        return UserResponse.fromEntity(userService.unfavoriteGame(userId, gameId));
     }
 
     @PostMapping("/category/{categoryId}/follow")
-    public User followCategory(@PathVariable String userId, @PathVariable String categoryId){
-        return userService.followCategory(userId, categoryId);
+    public UserResponse followCategory(@PathVariable String userId, @PathVariable String categoryId){
+        return UserResponse.fromEntity(userService.followCategory(userId, categoryId));
     }
 
     @PostMapping("/category/{categoryId}/unfollow")
-    public User unfollowCategory(@PathVariable String userId, @PathVariable String categoryId){
-        return userService.unfollowCategory(userId, categoryId);
+    public UserResponse unfollowCategory(@PathVariable String userId, @PathVariable String categoryId){
+        return UserResponse.fromEntity(userService.unfollowCategory(userId, categoryId));
     }
 }

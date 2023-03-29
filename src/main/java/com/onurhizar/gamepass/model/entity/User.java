@@ -1,6 +1,5 @@
 package com.onurhizar.gamepass.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,7 +27,6 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String email;
-    @JsonIgnore // TODO : UserDto will be implemented
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
