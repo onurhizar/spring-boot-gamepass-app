@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,23 @@ public class User implements UserDetails {
     private UserRole role = UserRole.GUEST;
 
     private boolean verified = false;
+
+    @ManyToMany
+    @JoinTable(name = "users_games",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id")
+    )
+    @Builder.Default
+    private List<Game> favoriteGames = new LinkedList<>();
+
+    @ManyToMany
+    @JoinTable(name = "users_categories",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @Builder.Default
+    private List<Category> followedCategories = new LinkedList<>();
+
 
     // below are for security package
     @Override

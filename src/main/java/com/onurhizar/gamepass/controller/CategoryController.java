@@ -29,7 +29,7 @@ public class CategoryController {
 
     @GetMapping("{id}")
     public CategoryResponse singleCategory(@PathVariable String id){
-        return categoryService.singleCategory(id);
+        return CategoryResponse.fromEntity(categoryService.findCategoryById(id));
     }
 
     @PutMapping("{id}")
