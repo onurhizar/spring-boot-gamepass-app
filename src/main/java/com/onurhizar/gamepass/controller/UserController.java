@@ -1,6 +1,5 @@
 package com.onurhizar.gamepass.controller;
 
-import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
 import com.onurhizar.gamepass.model.response.UserResponse;
 import com.onurhizar.gamepass.service.UserService;
@@ -22,6 +21,11 @@ public class UserController {
         return userService.listUsers().stream().map(UserResponse::fromEntity).toList();
     }
 
+    @GetMapping("{userId}")
+    public UserResponse getUser(@PathVariable String userId){
+        return UserResponse.fromEntity(userService.getUserById(userId));
+    }
+
     @PostMapping
     public UserResponse addUser(@Valid @RequestBody CreateUserRequest request){
         return UserResponse.fromEntity(userService.addUser(request));
@@ -36,4 +40,11 @@ public class UserController {
    public void deleteUser(@PathVariable String userId){
         userService.deleteUser(userId);
    }
+
+
+   // ADMIN or SELF authorization testing route, TODO remove later
+    @GetMapping("/admin-or-self-test/{userId}")
+    public String adminOrSelfResource(@PathVariable String userId){
+        return "You have reached protected resource.";
+    }
 }

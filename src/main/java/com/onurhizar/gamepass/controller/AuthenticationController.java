@@ -26,4 +26,32 @@ public class AuthenticationController {
         return authenticationService.login(request);
     }
 
+
+    @GetMapping("/verify") // TODO: in the API contract it is said POST method but I think GET is more intuitive
+    public void verify(@RequestParam String code){
+        authenticationService.verify(code);
+    }
+
+    @GetMapping("/verify/email")
+    // TODO email service is later, for now it just sends HTTP response
+    public String sendVerificationCodeToEmail(@RequestParam String email){
+        String code = authenticationService.sendVerificationCodeToEmail(email);
+        return "Your verification link is http://localhost:8080/verify?code="+code;
+    }
+
+
+    @GetMapping("/recover")
+    // sends a new random generated password
+    public String recoverPassword(@RequestParam String code){
+        String newPassword = authenticationService.recoverPasswordByGeneratingNew(code);
+        return "Your new password is "+newPassword;
+    }
+
+    @GetMapping("/recover/email/{userId}")
+    // TODO email service is later, for now it just sends HTTP response
+    public String sendRecoveryCodeToEmail(@PathVariable String userId){
+        String code = authenticationService.createRecoveryCode(userId);
+        return "Your password recovery link is http://localhost:8080/recover?code="+code;
+    }
+
 }

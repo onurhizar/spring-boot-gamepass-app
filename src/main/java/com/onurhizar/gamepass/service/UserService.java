@@ -59,6 +59,10 @@ public class UserService {
         return repository.findAll();
     }
 
+    public User getUserById(String id){
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
     public User findById(String id){
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }

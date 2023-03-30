@@ -15,8 +15,9 @@
 - [x] Validation
 - [x] Integration Testing (initialized)
 - [x] User Interests : Favorite / Unfavorite Games
-- [ ] Admin or Self authorization logic
-- [ ] Scheduling
+- [x] User Verification & Password Reset
+- [x] Admin or Self Authorization Logic
+- [x] Scheduling
 - [ ] Email Service
 - [ ] Other entities
 - [ ] Business Logic
