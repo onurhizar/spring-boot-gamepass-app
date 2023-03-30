@@ -1,5 +1,6 @@
 package com.onurhizar.gamepass.service;
 
+import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import com.onurhizar.gamepass.model.request.auth.RegisterRequest;
@@ -16,11 +17,13 @@ import com.onurhizar.gamepass.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.ZonedDateTime;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationService {
-    private final UserRepository userRepository;
+    private final UserRepository userRepository; // TODO make this userService
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -57,5 +60,25 @@ public class AuthenticationService {
         }
 
         throw new RuntimeException("Invalid Username or password"); // TODO specific exception
+    }
+
+    public String sendVerificationCodeToEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user==null) throw new EntityNotFoundException();
+        return user.getVerificationCode(); // TODO : what if expired? Should create new token?
+    }
+
+    public void verify(String verificationCode) {
+        User user = userRepository.findUserByVerificationCode(verificationCode); // TODO : make it service method
+
+        // check if not user exists
+        if (user==null) throw new EntityNotFoundException();
+
+        // check if verification code is expired
+        if (user.getVerificationCodeExpireDate().isBefore(ZonedDateTime.now()))
+            throw new RuntimeException("verification code is expired"); // TODO specific exception
+
+        user.setVerified(true);
+        userRepository.save(user);
     }
 }

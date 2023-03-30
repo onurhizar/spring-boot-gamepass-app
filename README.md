@@ -15,6 +15,7 @@
 - [x] Validation
 - [x] Integration Testing (initialized)
 - [x] User Interests : Favorite / Unfavorite Games
+- [x] User Verification & Expired Token Logic
 - [ ] Admin or Self authorization logic
 - [ ] Scheduling
 - [ ] Email Service

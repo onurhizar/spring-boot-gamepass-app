@@ -7,9 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -30,9 +32,15 @@ public class User implements UserDetails {
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private UserRole role = UserRole.GUEST;
 
     private boolean verified = false;
+
+    @Builder.Default
+    private String verificationCode = UUID.randomUUID().toString();
+    @Builder.Default
+    private ZonedDateTime verificationCodeExpireDate = ZonedDateTime.now().plusDays(1); // TODO fixed value?
 
     @ManyToMany
     @JoinTable(name = "users_games",
