@@ -16,7 +16,7 @@
 - [x] Integration Testing (initialized)
 - [x] User Interests : Favorite / Unfavorite Games
 - [x] User Verification & Expired Token Logic
-- [ ] Admin or Self authorization logic
+- [x] Admin or Self Authorization Logic
 - [ ] Scheduling
 - [ ] Email Service
 - [ ] Other entities

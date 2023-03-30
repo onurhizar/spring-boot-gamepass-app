@@ -36,4 +36,11 @@ public class UserController {
    public void deleteUser(@PathVariable String userId){
         userService.deleteUser(userId);
    }
+
+
+   // ADMIN or SELF authorization testing route, TODO remove later
+    @GetMapping("/admin-or-self-test/{userId}")
+    public String adminOrSelfResource(@PathVariable String userId){
+        return "You have reached protected resource.";
+    }
 }

@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class FilterChainConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
+    private final SelfFilter selfFilter;
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
@@ -27,13 +28,16 @@ public class FilterChainConfig {
             .requestMatchers("/register").permitAll()
             .requestMatchers("/swagger-ui/index.html").permitAll()  // OpenAPI
             .requestMatchers("/v3/api-docs").permitAll()            // OpenAPI
+            .requestMatchers("/user/admin-or-self-test/**") // FOR TESTING PURPOSES, TODO : remove later
+                .hasAnyAuthority("ADMIN", "SELF")
             .anyRequest().permitAll() //.authenticated()
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(selfFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtAuthFilter, SelfFilter.class);
 
         return http.build();
     }
