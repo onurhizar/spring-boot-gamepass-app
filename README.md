@@ -17,7 +17,7 @@
 - [x] User Interests : Favorite / Unfavorite Games
 - [x] User Verification & Expired Token Logic
 - [x] Admin or Self Authorization Logic
-- [ ] Scheduling
+- [x] Scheduling
 - [ ] Email Service
 - [ ] Other entities
 - [ ] Business Logic
