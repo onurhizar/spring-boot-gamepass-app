@@ -39,4 +39,19 @@ public class AuthenticationController {
         return "Your verification link is http://localhost:8080/verify?code="+code;
     }
 
+
+    @GetMapping("/recover")
+    // sends a new random generated password
+    public String recoverPassword(@RequestParam String code){
+        String newPassword = authenticationService.recoverPasswordByGeneratingNew(code);
+        return "Your new password is "+newPassword;
+    }
+
+    @GetMapping("/recover/email/{userId}")
+    // TODO email service is later, for now it just sends HTTP response
+    public String sendRecoveryCodeToEmail(@PathVariable String userId){
+        String code = authenticationService.createRecoveryCode(userId);
+        return "Your password recovery link is http://localhost:8080/recover?code="+code;
+    }
+
 }

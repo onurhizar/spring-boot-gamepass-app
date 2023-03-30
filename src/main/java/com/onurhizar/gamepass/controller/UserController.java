@@ -1,6 +1,5 @@
 package com.onurhizar.gamepass.controller;
 
-import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
 import com.onurhizar.gamepass.model.response.UserResponse;
 import com.onurhizar.gamepass.service.UserService;
@@ -20,6 +19,11 @@ public class UserController {
     @GetMapping
     public List<UserResponse> listUsers(){
         return userService.listUsers().stream().map(UserResponse::fromEntity).toList();
+    }
+
+    @GetMapping("{userId}")
+    public UserResponse getUser(@PathVariable String userId){
+        return UserResponse.fromEntity(userService.getUserById(userId));
     }
 
     @PostMapping

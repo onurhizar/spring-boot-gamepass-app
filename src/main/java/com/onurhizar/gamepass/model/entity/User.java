@@ -42,6 +42,9 @@ public class User implements UserDetails {
     @Builder.Default
     private ZonedDateTime verificationCodeExpireDate = ZonedDateTime.now().plusDays(1); // TODO fixed value?
 
+    private String recoveryCode;
+    private ZonedDateTime recoveryCodeExpireDate;
+
     @ManyToMany
     @JoinTable(name = "users_games",
             joinColumns = @JoinColumn(name = "user_id"),
