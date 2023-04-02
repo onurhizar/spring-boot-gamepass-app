@@ -1,9 +1,7 @@
 package com.onurhizar.gamepass.service;
 
 import com.onurhizar.gamepass.exception.EntityNotFoundException;
-import com.onurhizar.gamepass.model.entity.Category;
-import com.onurhizar.gamepass.model.entity.Game;
-import com.onurhizar.gamepass.model.entity.User;
+import com.onurhizar.gamepass.model.entity.*;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
 import com.onurhizar.gamepass.repository.UserRepository;
@@ -20,6 +18,8 @@ public class UserService {
     private final UserRepository repository;
     private final GameService gameService;
     private final CategoryService categoryService;
+    private final SubscriptionService subscriptionService;
+    private final ContractRecordService contractRecordService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -65,6 +65,13 @@ public class UserService {
 
     public User findById(String id){
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+
+    public ContractRecord subscribe(String userId, String subscriptionId){
+        User user = findById(userId);
+        Subscription subscription = subscriptionService.findById(subscriptionId);
+        return contractRecordService.addContract(user, subscription);
     }
 
     // Interests : Follow Categories and Favorite Games

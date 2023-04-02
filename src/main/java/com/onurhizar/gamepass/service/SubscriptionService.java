@@ -1,5 +1,6 @@
 package com.onurhizar.gamepass.service;
 
+import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.Subscription;
 import com.onurhizar.gamepass.repository.SubscriptionRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,5 +15,9 @@ public class SubscriptionService {
 
     public List<Subscription> listSubscriptions(){
         return repository.findAll();
+    }
+
+    public Subscription findById(String id){
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }
