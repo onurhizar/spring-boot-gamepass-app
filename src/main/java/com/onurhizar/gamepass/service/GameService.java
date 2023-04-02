@@ -24,7 +24,6 @@ public class GameService {
         return repository.findById(gameId).orElseThrow(EntityNotFoundException::new);
     }
 
-    @Transactional
     public List<GameResponse> listGames(){
         return repository.findAll().stream()
                 .map(GameResponse::fromEntity).toList();

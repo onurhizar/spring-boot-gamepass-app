@@ -2,6 +2,7 @@ package com.onurhizar.gamepass.controller;
 
 import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.service.GameService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,7 @@ public class GameControllerIntegrationTest {
     private GameService gameService;
 
     @Test
+    @Transactional
     public void givenGameList_whenListGamesEndpointCalled_thenRetrievesGameList() {
         // Given
         List<GameResponse> expectedGameList = gameService.listGames();

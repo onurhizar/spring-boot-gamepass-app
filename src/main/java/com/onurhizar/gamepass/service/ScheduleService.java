@@ -12,6 +12,6 @@ public class ScheduleService {
 
     @Scheduled(cron = "0 * * * * *")
     public void logEveryMinute(){
-        log.info("1 minute has passed");
+        // log.info("1 minute has passed");
     }
 }
