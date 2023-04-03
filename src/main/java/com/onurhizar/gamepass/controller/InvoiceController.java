@@ -1,12 +1,11 @@
 package com.onurhizar.gamepass.controller;
 
+import com.onurhizar.gamepass.model.request.PaymentRequest;
 import com.onurhizar.gamepass.model.response.InvoiceResponse;
 import com.onurhizar.gamepass.service.InvoiceService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +27,9 @@ public class InvoiceController {
     }
 
     // POST /invoice/{id}/pay -> Invoice (owner of the invoice only)
+    @PostMapping("{id}/pay")
+    public InvoiceResponse payInvoice(@PathVariable String id,
+                                      @Valid @RequestBody PaymentRequest paymentRequest){
+        return InvoiceResponse.fromEntity(invoiceService.payInvoice(id, paymentRequest));
+    }
 }
