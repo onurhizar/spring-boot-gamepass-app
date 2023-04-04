@@ -1,6 +1,7 @@
 package com.onurhizar.gamepass.service;
 
 import com.onurhizar.gamepass.exception.EntityNotFoundException;
+import com.onurhizar.gamepass.exception.UnacceptableRequestException;
 import com.onurhizar.gamepass.model.entity.*;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
@@ -71,7 +72,25 @@ public class UserService {
     public ContractRecord subscribe(String userId, String subscriptionId){
         User user = findById(userId);
         Subscription subscription = subscriptionService.findById(subscriptionId);
-        return contractRecordService.addContract(user, subscription);
+
+        // check if user is verified
+        if(!user.isVerified()) throw new UnacceptableRequestException("only verified users can subscribe");
+
+        // check if user has already a subscription (allow only upgrading)
+        ContractRecord contractRecord = user.getContractRecord();
+
+        if (contractRecord != null){
+            if (contractRecord.getDuration() >= subscription.getDuration())
+            {
+                throw new UnacceptableRequestException("you can only upgrade your subscription");
+            }
+        }
+
+        // when a guest user buys a subscription, assign a member role
+        if (user.getRole() == UserRole.GUEST) user.setRole(UserRole.MEMBER);
+
+        if (contractRecord == null) return contractRecordService.addContract(user, subscription);
+        else return contractRecordService.updateContract(contractRecord, subscription);
     }
 
     // Interests : Follow Categories and Favorite Games

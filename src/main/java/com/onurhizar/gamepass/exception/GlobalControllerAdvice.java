@@ -14,6 +14,11 @@ public class GlobalControllerAdvice {
         return new ResponseEntity<>(e.getMessage(), e.getStatusCode());
     }
 
+    @ExceptionHandler(UnacceptableRequestException.class)
+    public ResponseEntity<Object> handleException(UnacceptableRequestException e) {
+        return new ResponseEntity<>(e.getMessage(), e.getStatusCode());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleException(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
