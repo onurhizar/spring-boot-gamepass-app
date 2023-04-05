@@ -61,6 +61,9 @@ public class User implements UserDetails {
     @Builder.Default
     private List<Category> followedCategories = new LinkedList<>();
 
+    @OneToOne(mappedBy = "user")
+    private ContractRecord contractRecord;
+
 
     // below are for security package
     @Override

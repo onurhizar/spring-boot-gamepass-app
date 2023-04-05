@@ -25,4 +25,11 @@ public class ContractRecordService {
                 .createdDate(ZonedDateTime.now())
                 .build());
     }
+
+    public ContractRecord updateContract(ContractRecord contractRecord, Subscription subscription){
+        contractRecord.setName(subscription.getName());
+        contractRecord.setDuration(subscription.getDuration());
+        contractRecord.setMonthlyFee(subscription.getMonthlyFee());
+        return repository.save(contractRecord);
+    }
 }
