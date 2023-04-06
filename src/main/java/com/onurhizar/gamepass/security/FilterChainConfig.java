@@ -3,6 +3,7 @@ package com.onurhizar.gamepass.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +31,7 @@ public class FilterChainConfig {
             .requestMatchers("/v3/api-docs").permitAll()            // OpenAPI
             .requestMatchers("/user/admin-or-self-test/**") // FOR TESTING PURPOSES, TODO : remove later
                 .hasAnyAuthority("ADMIN", "SELF")
+            .requestMatchers(HttpMethod.DELETE, "/user/**").hasAuthority("ADMIN")
             .anyRequest().permitAll() //.authenticated()
             .and()
             .sessionManagement()

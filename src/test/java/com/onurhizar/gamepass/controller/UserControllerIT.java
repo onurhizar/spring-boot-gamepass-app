@@ -2,6 +2,7 @@ package com.onurhizar.gamepass.controller;
 
 import com.onurhizar.gamepass.config.ContainersEnvironment;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
+import com.onurhizar.gamepass.util.AuthTokenHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class UserControllerIT extends ContainersEnvironment {
 
     @Autowired
     private TestRestTemplate restTemplate;
+    @Autowired
+    private AuthTokenHelper authTokenHelper;
 
     @Test
     void whenGetRequest_returnUsers(){
@@ -83,6 +86,27 @@ public class UserControllerIT extends ContainersEnvironment {
         log.info(response.getBody());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    void givenAdminAuth_whenDeleteUser_thenStatus200(){
+        String userId = "102b8078-276a-49e2-b1df-ad41415e32b9";
+        String url = "/user/"+userId;
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    void givenNoAuth_whenDeleteUser_thenStatus401Forbidden(){
+        String userId = "102b8078-276a-49e2-b1df-ad41415e32b9";
+        String url = "/user/"+userId;
+        HttpEntity<String> request = new HttpEntity<>(null);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
     }
 
 }
