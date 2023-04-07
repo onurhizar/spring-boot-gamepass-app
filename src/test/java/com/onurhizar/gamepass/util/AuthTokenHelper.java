@@ -16,7 +16,7 @@ public class AuthTokenHelper {
     public HttpHeaders generateJwtHeader(String username){
         String token = jwtService.generateToken(username);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization","Bearer "+token);
+        headers.setBearerAuth(token);
         return headers;
     }
 }
