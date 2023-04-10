@@ -29,16 +29,21 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+
+    public String generateToken(String username){
+        return Jwts.builder()
+                .signWith(getSigningKey())
+                .setIssuer(TOKEN_ISSUER)
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * EXPIRE_HOURS))
+                .compact();
+    }
+
     // TODO: what if dont specify algorithm? vulnerability by giving json with no
     // alg
     public String generateToken(User user) {
-        return Jwts.builder()
-            .signWith(getSigningKey())
-            .setIssuer(TOKEN_ISSUER)
-            .setSubject(user.getUsername())
-            .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * EXPIRE_HOURS))
-            .compact();
+        return generateToken(user.getUsername());
     }
 
     /**

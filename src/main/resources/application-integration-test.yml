@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/gamepass_test
+    username: postgres
+    password: secretpassword
   jpa:
     show-sql: true
     generate-ddl: true

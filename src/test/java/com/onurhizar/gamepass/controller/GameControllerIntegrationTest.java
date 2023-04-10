@@ -1,5 +1,6 @@
 package com.onurhizar.gamepass.controller;
 
+import com.onurhizar.gamepass.abstracts.AbstractIntegrationTest;
 import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.service.GameService;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Map;
@@ -21,11 +23,9 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("integration-test")
 @Slf4j
-public class GameControllerIntegrationTest {
-
-    @LocalServerPort
-    private int port;
+public class GameControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -34,7 +34,7 @@ public class GameControllerIntegrationTest {
     private GameService gameService;
 
     @Test
-    @Transactional
+    @Transactional // TODO : make a repository method to get Categories of Games
     public void givenGameList_whenListGamesEndpointCalled_thenRetrievesGameList() {
         // Given
         List<GameResponse> expectedGameList = gameService.listGames();
