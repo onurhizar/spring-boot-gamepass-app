@@ -1,6 +1,6 @@
 package com.onurhizar.gamepass.controller;
 
-import com.onurhizar.gamepass.config.ContainersEnvironment;
+import com.onurhizar.gamepass.abstracts.AbstractIntegrationTest;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
 import com.onurhizar.gamepass.util.AuthTokenHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("integration-test")
 @Slf4j
-public class UserControllerIT extends ContainersEnvironment {
+public class UserControllerIT extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
