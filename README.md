@@ -18,6 +18,9 @@
 - [x] User Verification & Password Reset
 - [x] Admin or Self Authorization Logic
 - [x] Scheduling
+- [x] Subscription and ContractRecord
+- [x] Invoice and Payment
+- [x] TestContainers
 - [ ] Email Service
 - [ ] Other entities
 - [ ] Business Logic
@@ -27,6 +30,9 @@
 ### Sample Environment Variables
 
 ```text
+DB_URL=jdbc:postgresql://localhost:5432/gamepass
+DB_USERNAME=postgres
+DB_PASSWORD=secretpassword
 JWT_ISSUER=GamePass
 JWT_EXPIRATION_HOURS=12
 JWT_SECRET_KEY=104E635266556A586E3272367538722F413F4438472B4B6250645367266B5275
