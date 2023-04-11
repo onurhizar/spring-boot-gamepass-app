@@ -1,5 +1,25 @@
 # GamePass App
 
+This is a Spring Boot application that clones the XBOX GamePass platform as a practice.  
+`Estimated completion date : 7 May 2023`
+
+
+
+## Features
+
+- JWT Authentication
+- Exception Handling
+- Validation
+- Swagger OpenAPI
+- Subscription, Payment and Invoice
+- Integration Testing
+- TestContainers
+- Scheduling
+- File Upload
+- Email Service
+
+
+
 ## Project Steps
 - [x] Game entity and database connection
 - [x] Populate sample data with data.sql
@@ -21,13 +41,15 @@
 - [x] Subscription and ContractRecord
 - [x] Invoice and Payment
 - [x] TestContainers
-- [ ] Email Service
 - [ ] Other entities
 - [ ] Business Logic
+- [ ] File Upload
+- [ ] Email Service
+- [ ] Review and Refactoring
 
-- - -
 
-### Sample Environment Variables
+
+## Sample Environment Variables
 
 ```text
 DB_URL=jdbc:postgresql://localhost:5432/gamepass
@@ -37,3 +59,9 @@ JWT_ISSUER=GamePass
 JWT_EXPIRATION_HOURS=12
 JWT_SECRET_KEY=104E635266556A586E3272367538722F413F4438472B4B6250645367266B5275
 ```
+
+
+
+## License
+
+This application is licensed under the MIT License. See the LICENSE file for more information.
