@@ -3,19 +3,13 @@ package com.onurhizar.gamepass.controller;
 import com.onurhizar.gamepass.abstracts.AbstractIntegrationTest;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
 import com.onurhizar.gamepass.util.AuthTokenHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("integration-test")
-@Slf4j
 public class UserControllerIT extends AbstractIntegrationTest {
 
     @Autowired
@@ -34,7 +28,6 @@ public class UserControllerIT extends AbstractIntegrationTest {
         String userId = "5b8a3d25-2b7a-4683-89ed-ac0e42cdc879";
         String url = "/user/"+userId;
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        log.info(response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
@@ -67,7 +60,6 @@ public class UserControllerIT extends AbstractIntegrationTest {
         requestDto.setPassword("123456");
 
         ResponseEntity<String> response = restTemplate.postForEntity("/user", requestDto, String.class);
-        log.info(response.getBody());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -83,8 +75,6 @@ public class UserControllerIT extends AbstractIntegrationTest {
 
         HttpEntity<CreateUserRequest> request = new HttpEntity<>(requestDto);
         ResponseEntity<String> response = restTemplate.postForEntity("/user", request, String.class);
-
-        log.info(response.getBody());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
