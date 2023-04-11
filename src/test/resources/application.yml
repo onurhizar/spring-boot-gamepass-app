@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/gamepass}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:secretpassword}
+    hikari:
+      maximum-pool-size: 5
+    tomcat:
+      max-wait: 10000
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5275
+  issuer: GamePass App
+  expiration:
+    hours: 12
