@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Subscription {
+public class Subscription extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

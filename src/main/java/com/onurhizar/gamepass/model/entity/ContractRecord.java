@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ContractRecord {
+public class ContractRecord extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
