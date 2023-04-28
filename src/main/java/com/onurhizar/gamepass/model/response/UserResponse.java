@@ -6,6 +6,7 @@ import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import lombok.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,6 +26,9 @@ public class UserResponse {
     private List<String> favoriteGames;
     private List<String> followedCategories;
 
+    private ZonedDateTime createdAt; // TODO: extend with abstract class? But @Builder makes it harder to implement
+    private ZonedDateTime updatedAt;
+
     public static UserResponse fromEntity(User user){
         return UserResponse.builder()
                 .id(user.getId())
@@ -35,6 +39,8 @@ public class UserResponse {
                 .verified(user.isVerified())
                 .favoriteGames(user.getFavoriteGames().stream().map(Game::getTitle).toList())
                 .followedCategories(user.getFollowedCategories().stream().map(Category::getName).toList())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .build();
     }
 }
