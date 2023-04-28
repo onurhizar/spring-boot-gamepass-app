@@ -28,4 +28,8 @@ public class GameService {
         return repository.findAll().stream()
                 .map(GameResponse::fromEntity).toList();
     }
+
+    public Game getGame(String gameId) {
+        return findGameById(gameId);
+    }
 }

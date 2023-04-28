@@ -4,6 +4,7 @@ import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +20,10 @@ public class GameController {
     @GetMapping
     public List<GameResponse> listGames(){
         return gameService.listGames();
+    }
+
+    @GetMapping("{gameId}")
+    public GameResponse getGame(@PathVariable String gameId){
+        return GameResponse.fromEntity(gameService.getGame(gameId));
     }
 }
