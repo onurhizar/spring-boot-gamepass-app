@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gamepass
-    username: postgres
-    password: secretpassword
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/gamepass}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:secretpassword}
 
   jpa:
     hibernate:
@@ -19,7 +19,7 @@ spring:
       mode: always
 
 jwt:
-  secret: ${JWT_SECRET_KEY}
-  issuer: ${JWT_ISSUER}
+  secret: ${JWT_SECRET_KEY:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5275}
+  issuer: ${JWT_ISSUER:GamePass App}
   expiration:
-    hours: ${JWT_EXPIRATION_HOURS}
+    hours: ${JWT_EXPIRATION_HOURS:12}
