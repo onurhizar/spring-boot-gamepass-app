@@ -20,7 +20,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class User extends CommonEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

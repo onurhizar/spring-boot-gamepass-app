@@ -1,7 +1,6 @@
 # GamePass App
 
 This is a Spring Boot application that clones the XBOX GamePass platform as a practice.  
-`Estimated completion date : 7 May 2023`
 
 
 
@@ -41,10 +40,11 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - [x] Subscription and ContractRecord
 - [x] Invoice and Payment
 - [x] TestContainers
+- [x] CommonEntity for createdAt and updatedAt
 - [ ] Other entities
 - [ ] Business Logic
 - [ ] File Upload
-- [ ] Email Service
+- [ ] Email Service (optional)
 - [ ] Review and Refactoring
 
 

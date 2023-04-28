@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Game {
+public class Game extends CommonEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

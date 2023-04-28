@@ -5,6 +5,7 @@ import com.onurhizar.gamepass.model.entity.Game;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,11 +16,16 @@ public class CategoryResponse {
     private boolean isSuperCategory;
     private List<String> games;
 
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
+
     public static CategoryResponse fromEntity(Category category){
         return new CategoryResponse(
                 category.getName(),
                 category.isSuperCategory(),
-                category.getGames().stream().map(Game::getTitle).toList()
+                category.getGames().stream().map(Game::getTitle).toList(),
+                category.getCreatedAt(),
+                category.getUpdatedAt()
         );
     }
 }

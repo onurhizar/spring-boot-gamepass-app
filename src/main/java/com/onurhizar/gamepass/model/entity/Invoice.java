@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Invoice {
+public class Invoice extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
