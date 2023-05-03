@@ -3,6 +3,7 @@ package com.onurhizar.gamepass.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,6 +19,11 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(UnacceptableRequestException.class)
     public ResponseEntity<Object> handleException(UnacceptableRequestException e) {
         return new ResponseEntity<>(e.getMessage(), e.getStatusCode());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Object> handleException(BadCredentialsException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
