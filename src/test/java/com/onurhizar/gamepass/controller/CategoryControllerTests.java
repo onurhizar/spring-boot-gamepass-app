@@ -12,7 +12,7 @@ import org.springframework.http.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CategoryControllerIT extends AbstractIntegrationTest {
+public class CategoryControllerTests extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

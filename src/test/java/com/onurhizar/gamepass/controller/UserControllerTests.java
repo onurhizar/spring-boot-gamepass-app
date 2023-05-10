@@ -11,7 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserControllerIT extends AbstractIntegrationTest {
+public class UserControllerTests extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AuthControllerIT extends AbstractIntegrationTest {
+public class AuthControllerTests extends AbstractIntegrationTest {
 
     private static String verificationCode;
     private static String recoveryCode;

@@ -1,10 +1,7 @@
 package com.onurhizar.gamepass.controller;
 
 import com.onurhizar.gamepass.abstracts.AbstractIntegrationTest;
-import com.onurhizar.gamepass.model.request.CreateCategoryRequest;
 import com.onurhizar.gamepass.model.request.CreateGameRequest;
-import com.onurhizar.gamepass.model.request.CreateUserRequest;
-import com.onurhizar.gamepass.model.response.CategoryResponse;
 import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.util.AuthTokenHelper;
 import org.junit.jupiter.api.Test;
@@ -15,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GameControllerIT extends AbstractIntegrationTest {
+public class GameControllerTests extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
