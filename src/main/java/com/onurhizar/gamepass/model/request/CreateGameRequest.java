@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCategoryRequest {
-    private String name;
+public class CreateGameRequest {
+    private String title;
 }

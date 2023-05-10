@@ -7,10 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserControllerIT extends AbstractIntegrationTest {
+public class UserControllerTests extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -80,6 +81,7 @@ public class UserControllerIT extends AbstractIntegrationTest {
     }
 
     @Test
+    @DirtiesContext
     void givenAdminAuth_whenDeleteUser_thenStatus200(){
         String userId = "102b8078-276a-49e2-b1df-ad41415e32b9";
         String url = "/user/"+userId;

@@ -2,17 +2,17 @@
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
 VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'admin@mail.com', 'Onur', 'Hızar',
         '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'ADMIN', true,
-        '72014de5-1e02-4b31-b9f4-0792ce889b83', now(), now(), now());
+        '72014de5-1e02-4b31-b9f4-0792ce889b83', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
 
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
 VALUES ('aa59d163-5e7e-4290-b6ac-b901b0b4543a', 'test@mail.com', 'Test', 'User',
         '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'MEMBER', true,
-        '06a3d67a-f588-4298-8cfc-3ee3597b0b89', now(), now(), now());
+        '06a3d67a-f588-4298-8cfc-3ee3597b0b89', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
 
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
 VALUES ('102b8078-276a-49e2-b1df-ad41415e32b9', 'guest@mail.com', 'Guest', 'User',
         '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'GUEST', false,
-        'c4bfe252-8de9-41fa-ae94-d55d78f1adae', now(), now(), now());
+        'c4bfe252-8de9-41fa-ae94-d55d78f1adae', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
 
 
 -- Subscription Data

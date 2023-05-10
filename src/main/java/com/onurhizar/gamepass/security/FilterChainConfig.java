@@ -32,6 +32,9 @@ public class FilterChainConfig {
             .requestMatchers("/user/admin-or-self-test/**") // FOR TESTING PURPOSES, TODO : remove later
                 .hasAnyAuthority("ADMIN", "SELF")
             .requestMatchers(HttpMethod.DELETE, "/user/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/category/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/category/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/category/**").hasAuthority("ADMIN")
             .anyRequest().permitAll() //.authenticated()
             .and()
             .sessionManagement()
