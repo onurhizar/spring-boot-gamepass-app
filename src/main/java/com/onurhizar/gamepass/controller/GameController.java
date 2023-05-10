@@ -1,12 +1,10 @@
 package com.onurhizar.gamepass.controller;
 
+import com.onurhizar.gamepass.model.request.CreateGameRequest;
 import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.service.GameService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +23,20 @@ public class GameController {
     @GetMapping("{gameId}")
     public GameResponse getGame(@PathVariable String gameId){
         return GameResponse.fromEntity(gameService.getGame(gameId));
+    }
+
+    @PostMapping
+    public GameResponse postGame(@RequestBody CreateGameRequest createGameRequest){
+        return GameResponse.fromEntity(gameService.createGame(createGameRequest));
+    }
+
+    @PutMapping("{gameId}")
+    public GameResponse updateGame(@PathVariable String gameId, @RequestBody CreateGameRequest createGameRequest){
+        return GameResponse.fromEntity(gameService.updateGame(gameId,createGameRequest));
+    }
+
+    @DeleteMapping("{gameId}")
+    public void deleteGame(@PathVariable String gameId){
+        gameService.deleteGame(gameId);
     }
 }

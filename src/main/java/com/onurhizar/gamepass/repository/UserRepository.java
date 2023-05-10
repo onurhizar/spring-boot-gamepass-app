@@ -1,6 +1,7 @@
 package com.onurhizar.gamepass.repository;
 
 import com.onurhizar.gamepass.model.entity.Category;
+import com.onurhizar.gamepass.model.entity.Game;
 import com.onurhizar.gamepass.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,5 +15,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     public User findUserByRecoveryCode(String recoveryCode);
 
     public List<User> findByFollowedCategories(Category category);
+
+    public List<User> findByFavoriteGames(Game game);
 
 }

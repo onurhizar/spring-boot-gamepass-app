@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class GameResponse {
 
+    private String id;
     private String title;
     private List<String> categories;
 
@@ -21,6 +22,7 @@ public class GameResponse {
 
     public static GameResponse fromEntity(Game game){
         return new GameResponse(
+                game.getId(),
                 game.getTitle(),
                 game.getCategories().stream().map(Category::getName).toList(),
                 game.getCreatedAt(),
