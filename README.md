@@ -43,7 +43,7 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - [x] CommonEntity for createdAt and updatedAt
 - [ ] Other entities
 - [ ] Business Logic
-- [ ] File Upload
+- [x] File Upload
 - [ ] Email Service (optional)
 - [ ] Review and Refactoring
 
@@ -58,6 +58,7 @@ DB_PASSWORD=secretpassword
 JWT_ISSUER=GamePass
 JWT_EXPIRATION_HOURS=12
 JWT_SECRET_KEY=104E635266556A586E3272367538722F413F4438472B4B6250645367266B5275
+UPLOAD_DIRECTORY=/tmp
 ```
 
 

@@ -27,3 +27,6 @@ jwt:
   issuer: GamePass App
   expiration:
     hours: 12
+
+upload:
+  directory: ${UPLOAD_DIRECTORY:/tmp}
