@@ -1,18 +1,14 @@
 package com.onurhizar.gamepass.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class File extends CommonEntity {
+public class FileInfo extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
