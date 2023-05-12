@@ -4,6 +4,18 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 
 
 
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Installation Steps](#installation-steps)
+- [Project Steps](#project-steps)
+- [Sample Environment Variables](#sample-environment-variables)
+- [License](#license)
+
+
+
 ## Features
 
 - JWT Authentication
@@ -16,6 +28,22 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - Scheduling
 - File Upload
 - Email Service
+- Docker Image
+
+
+
+## Installation
+
+### Prerequisites
+- Docker
+
+### Installation Steps
+- `git clone https://github.com/onurhizar/spring-boot-gamepass-app`
+- `cd spring-boot-gamepass-app`
+- `./mvnw clean package -DskipTests` to build JAR file
+- `docker compose up` to run app
+- `http://localhost:8080/swagger-ui.html` to see Swagger UI of API routes
+- `docker compose down` to stop the app and remove the images
 
 
 
@@ -41,9 +69,10 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - [x] Invoice and Payment
 - [x] TestContainers
 - [x] CommonEntity for createdAt and updatedAt
+- [x] Dockerfile
 - [ ] Other entities
 - [ ] Business Logic
-- [ ] File Upload
+- [x] File Upload
 - [ ] Email Service (optional)
 - [ ] Review and Refactoring
 
@@ -58,6 +87,7 @@ DB_PASSWORD=secretpassword
 JWT_ISSUER=GamePass
 JWT_EXPIRATION_HOURS=12
 JWT_SECRET_KEY=104E635266556A586E3272367538722F413F4438472B4B6250645367266B5275
+UPLOAD_DIRECTORY=/tmp
 ```
 
 
