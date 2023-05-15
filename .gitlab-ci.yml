@@ -1,0 +1,25 @@
+stages:
+  - build
+  - test
+
+services:
+  - postgres:11.1
+  - docker:dind
+
+variables:
+  POSTGRES_DB: gamepass
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: secretpassword
+  DB_URL: "jdbc:postgresql://postgres:5432/gamepass"
+
+build-job:
+  stage: build
+  image: maven:3-eclipse-temurin-17
+  script: mvn clean package -DskipTests
+
+integration-test-job:
+  stage: test
+  image: maven:3-eclipse-temurin-17
+  script: mvn test
+  variables:
+    DOCKER_HOST: tcp://docker:2375
