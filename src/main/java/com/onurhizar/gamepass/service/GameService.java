@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -32,7 +33,7 @@ public class GameService {
 
     public List<GameResponse> listGames(){
         return repository.findAll().stream()
-                .map(GameResponse::fromEntity).toList();
+                .map(GameResponse::fromEntity).collect(Collectors.toList());
     }
 
     public Game getGame(String gameId) {

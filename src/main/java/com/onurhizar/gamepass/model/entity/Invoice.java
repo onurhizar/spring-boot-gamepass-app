@@ -1,6 +1,6 @@
 package com.onurhizar.gamepass.model.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity
@@ -11,7 +11,6 @@ import lombok.*;
 @Builder
 public class Invoice extends CommonEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private int fee;
 

@@ -1,6 +1,6 @@
 package com.onurhizar.gamepass.model.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.time.ZonedDateTime;
@@ -14,7 +14,6 @@ import java.time.ZonedDateTime;
 @Builder
 public class ContractRecord extends CommonEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
     private int monthlyFee;

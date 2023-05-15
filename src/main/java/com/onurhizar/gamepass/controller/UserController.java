@@ -3,11 +3,12 @@ package com.onurhizar.gamepass.controller;
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
 import com.onurhizar.gamepass.model.response.UserResponse;
 import com.onurhizar.gamepass.service.UserService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -18,7 +19,7 @@ public class UserController {
 
     @GetMapping
     public List<UserResponse> listUsers(){
-        return userService.listUsers().stream().map(UserResponse::fromEntity).toList();
+        return userService.listUsers().stream().map(UserResponse::fromEntity).collect(Collectors.toList());
     }
 
     @GetMapping("{userId}")

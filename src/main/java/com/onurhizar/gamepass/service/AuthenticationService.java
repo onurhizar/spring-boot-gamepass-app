@@ -4,7 +4,7 @@ import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import com.onurhizar.gamepass.model.request.auth.RegisterRequest;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.AuthenticationManager;
