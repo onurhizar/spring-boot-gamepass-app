@@ -17,10 +17,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends CommonEntity implements UserDetails {
-
-    @Id
-    private String id;
+public class User extends BaseEntity implements UserDetails {
 
     private String name;
     private String surname;

@@ -13,10 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category extends CommonEntity {
-
-    @Id
-    private String id;
+public class Category extends BaseEntity {
 
     private String name;
 

@@ -12,9 +12,8 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ContractRecord extends CommonEntity {
-    @Id
-    private String id;
+public class ContractRecord extends BaseEntity {
+
     private String name;
     private int monthlyFee;
     private int duration;

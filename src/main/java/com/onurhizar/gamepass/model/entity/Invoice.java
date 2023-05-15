@@ -9,9 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Invoice extends CommonEntity {
-    @Id
-    private String id;
+public class Invoice extends BaseEntity {
+
     private int fee;
 
     @ManyToOne

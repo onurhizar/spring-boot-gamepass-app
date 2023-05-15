@@ -1,9 +1,7 @@
 package com.onurhizar.gamepass.model.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Subscription extends CommonEntity {
-    @Id
-    private String id;
+public class Subscription extends BaseEntity {
+
     private String name;
     private int monthlyFee;
     private int duration;

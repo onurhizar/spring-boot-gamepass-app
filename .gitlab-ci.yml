@@ -14,12 +14,12 @@ variables:
 
 build-job:
   stage: build
-  image: maven:3-eclipse-temurin-17
+  image: maven:3-eclipse-temurin-8
   script: mvn clean package -DskipTests
 
 integration-test-job:
   stage: test
-  image: maven:3-eclipse-temurin-17
+  image: maven:3-eclipse-temurin-8
   script: mvn test
   variables:
     DOCKER_HOST: tcp://docker:2375

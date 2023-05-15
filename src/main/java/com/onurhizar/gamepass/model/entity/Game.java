@@ -13,10 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Game extends CommonEntity{
-
-    @Id
-    private String id;
+public class Game extends BaseEntity {
 
     private String title;
 
