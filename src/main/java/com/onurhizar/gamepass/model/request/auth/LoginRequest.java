@@ -1,7 +1,7 @@
 package com.onurhizar.gamepass.model.request.auth;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import lombok.*;
 
 @Data

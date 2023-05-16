@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Builder
@@ -37,8 +38,8 @@ public class UserResponse {
                 .email(user.getEmail())
                 .role(user.getRole())
                 .verified(user.isVerified())
-                .favoriteGames(user.getFavoriteGames().stream().map(Game::getTitle).toList())
-                .followedCategories(user.getFollowedCategories().stream().map(Category::getName).toList())
+                .favoriteGames(user.getFavoriteGames().stream().map(Game::getTitle).collect(Collectors.toList()))
+                .followedCategories(user.getFollowedCategories().stream().map(Category::getName).collect(Collectors.toList()))
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();

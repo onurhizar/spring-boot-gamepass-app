@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Data
@@ -24,7 +25,7 @@ public class GameResponse {
         return new GameResponse(
                 game.getId(),
                 game.getTitle(),
-                game.getCategories().stream().map(Category::getName).toList(),
+                game.getCategories().stream().map(Category::getName).collect(Collectors.toList()),
                 game.getCreatedAt(),
                 game.getUpdatedAt()
         );

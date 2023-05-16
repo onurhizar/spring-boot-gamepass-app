@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -23,7 +24,7 @@ public class CategoryResponse {
         return new CategoryResponse(
                 category.getName(),
                 category.isSuperCategory(),
-                category.getGames().stream().map(Game::getTitle).toList(),
+                category.getGames().stream().map(Game::getTitle).collect(Collectors.toList()),
                 category.getCreatedAt(),
                 category.getUpdatedAt()
         );

@@ -2,7 +2,7 @@ package com.onurhizar.gamepass.config;
 
 import com.onurhizar.gamepass.model.entity.ContractRecord;
 import com.onurhizar.gamepass.service.*;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -22,9 +22,9 @@ public class ConfigRunner implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        ContractRecord contractRecord = createContractRecord(); // contract record of admin
-        createInvoice(contractRecord);
-        createInvoice(contractRecord);
+        //ContractRecord contractRecord = createContractRecord(); // contract record of admin
+        //createInvoice(contractRecord);
+        //createInvoice(contractRecord);
     }
 
 

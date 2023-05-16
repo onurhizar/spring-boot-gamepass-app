@@ -1,6 +1,6 @@
 package com.onurhizar.gamepass.model.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity
@@ -9,10 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Payment extends CommonEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+public class Payment extends BaseEntity {
+
     private int amount;
     private String senderCard;
     private String receiverCard;

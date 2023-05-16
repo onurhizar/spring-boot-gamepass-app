@@ -26,8 +26,6 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - Integration Testing
 - TestContainers
 - Scheduling
-- File Upload
-- Email Service
 - Docker Image
 
 
@@ -38,7 +36,7 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - Docker
 
 ### Installation Steps
-- `git clone https://github.com/onurhizar/spring-boot-gamepass-app`
+- `git clone https://gitlab.com/onurhizar/spring-boot-gamepass-app`
 - `cd spring-boot-gamepass-app`
 - `./mvnw clean package -DskipTests` to build JAR file
 - `docker compose up` to run app
@@ -70,10 +68,9 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - [x] TestContainers
 - [x] CommonEntity for createdAt and updatedAt
 - [x] Dockerfile
-- [ ] Other entities
+- [x] Other entities
 - [ ] Business Logic
-- [x] File Upload
-- [ ] Email Service (optional)
+- [x] Downgrade from Java 17 to Java 8
 - [ ] Review and Refactoring
 
 

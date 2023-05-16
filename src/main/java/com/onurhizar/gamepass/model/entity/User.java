@@ -1,17 +1,14 @@
 package com.onurhizar.gamepass.model.entity;
 
 import com.onurhizar.gamepass.model.enums.UserRole;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.ZonedDateTime;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -20,11 +17,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends CommonEntity implements UserDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+public class User extends BaseEntity implements UserDetails {
 
     private String name;
     private String surname;
@@ -35,6 +28,7 @@ public class User extends CommonEntity implements UserDetails {
     @Builder.Default
     private UserRole role = UserRole.GUEST;
 
+    @Builder.Default
     private boolean verified = false;
 
     @Builder.Default
@@ -68,7 +62,7 @@ public class User extends CommonEntity implements UserDetails {
     // below are for security package
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return Arrays.asList(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

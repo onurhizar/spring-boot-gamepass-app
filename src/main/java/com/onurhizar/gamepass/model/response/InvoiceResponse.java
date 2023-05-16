@@ -2,7 +2,7 @@ package com.onurhizar.gamepass.model.response;
 
 import com.onurhizar.gamepass.model.entity.ContractRecord;
 import com.onurhizar.gamepass.model.entity.Invoice;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
