@@ -7,5 +7,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, String> {
-    public List<Invoice> findByCreatedAtBefore(ZonedDateTime time);
+    List<Invoice> findByCreatedAtBefore(ZonedDateTime time);
+    List<Invoice> findByCreatedAtBeforeAndFeeIsNot(ZonedDateTime time, int fee);
+
+    List<Invoice> findByContractRecordUserIdAndFeeNot(String userId, int fee);
 }

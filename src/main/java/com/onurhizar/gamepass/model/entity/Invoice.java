@@ -18,8 +18,8 @@ public class Invoice extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Invoice{" +
-                "fee=" + fee +
+        return "Invoice{" + "id=" + getId() +
+                ", fee=" + fee +
                 ", contractRecordID=" + contractRecord.getId() +
                 '}';
     }

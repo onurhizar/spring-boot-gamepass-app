@@ -2,6 +2,7 @@ package com.onurhizar.gamepass.service;
 
 import com.onurhizar.gamepass.model.entity.ContractRecord;
 import com.onurhizar.gamepass.model.entity.Invoice;
+import com.onurhizar.gamepass.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -20,6 +21,7 @@ public class ScheduleService {
     private final ContractRecordService contractRecordService;
     private final InvoiceService invoiceService;
     private final UserService userService;
+    private final InvoiceRepository invoiceRepository;
 
     @Scheduled(cron = "0 */2 * * * *")
     public void createInvoicesInEveryEvenMinute(){
@@ -42,14 +44,19 @@ public class ScheduleService {
         log.info("Odd minute");
         findPassedInvoicesAndExtractTheirUserIds();
 
+        List<Invoice> invoices = invoiceRepository.findByContractRecordUserIdAndFeeNot("aa59d163-5e7e-4290-b6ac-b901b0b4543a", 0); // TODO remove this line
+        log.info("Specific user invoices:");
+        for (Invoice invoice : invoices) {
+            log.info("Invoice: "+invoice);
+        }
     }
 
     private void findPassedInvoicesAndExtractTheirUserIds(){
         HashSet<String> userIds = new HashSet<>();
 
         //List<Invoice> oldInvoices = invoiceService.findInvoicesBy15DaysOld(); // 15 days passed invoices // todo use 15 old
-        List<Invoice> oldInvoices = invoiceService.findInvoicesBy5MinsOld(); // 15 days passed invoices // todo use 15 old
-        log.info("Old invoices: "+oldInvoices.size()); // TODO make it only non zero fee invoices
+        List<Invoice> oldInvoices = invoiceService.findNonPaidInvoicesBy5MinsOld(); // 15 days passed invoices // todo use 15 old
+        log.info("Old Non Paid invoices: "+oldInvoices.size()); // TODO make it only non zero fee invoices
         for (Invoice invoice : oldInvoices) {
             log.info("Invoice: "+invoice);
             log.info("UserID: "+invoice.getContractRecord().getUser().getId());
