@@ -22,17 +22,8 @@ public class InvoiceService {
         return repository.findAll();
     }
 
-    @Transactional
-    public void createInvoice(ContractRecord contractRecord){
-        int duration = contractRecord.getDuration(); // remaining invoices
-        if (duration<1) return; // TODO : throw exception?
-        contractRecord.setDuration(duration-1); // decrease the duration
-        // TODO : no need to contractRepository save?
-
-        repository.save(Invoice.builder()
-            .fee(contractRecord.getMonthlyFee())
-            .contractRecord(contractRecord)
-            .build());
+    public Invoice addInvoice(Invoice invoice){
+        return repository.save(invoice);
     }
 
     public Invoice getInvoice(String id) {

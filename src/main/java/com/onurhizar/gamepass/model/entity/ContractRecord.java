@@ -8,7 +8,6 @@ import java.time.ZonedDateTime;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -22,4 +21,10 @@ public class ContractRecord extends BaseEntity {
     @OneToOne
     private User user;
     private ZonedDateTime createdDate;
+
+    @Override
+    public String toString() {
+        return "ContractRecord [name=" + name + ", monthlyFee=" + monthlyFee + ", duration=" + duration + ", isActive="
+                + isActive + ", userId=" + user.getId() + ", createdDate=" + createdDate + "]";
+    }
 }
