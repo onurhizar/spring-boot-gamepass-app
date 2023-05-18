@@ -16,7 +16,9 @@ public class ContractRecord extends BaseEntity {
     private String name;
     private int monthlyFee;
     private int duration;
-    private boolean isActive;
+
+    @Column(name = "is_active")
+    private boolean active;
 
     @OneToOne
     private User user;
@@ -25,6 +27,6 @@ public class ContractRecord extends BaseEntity {
     @Override
     public String toString() {
         return "ContractRecord [name=" + name + ", monthlyFee=" + monthlyFee + ", duration=" + duration + ", isActive="
-                + isActive + ", userId=" + user.getId() + ", createdDate=" + createdDate + "]";
+                + active + ", userId=" + user.getId() + ", createdDate=" + createdDate + "]";
     }
 }

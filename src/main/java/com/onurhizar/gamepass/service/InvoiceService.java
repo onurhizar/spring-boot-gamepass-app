@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -56,5 +57,19 @@ public class InvoiceService {
 
     public Invoice findById(String id){
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    /**
+     * to list invoices that are older than 15 days from now so that we can downgrade the user to guest role
+     */
+    public List<Invoice> findInvoicesBy15DaysOld(){
+        ZonedDateTime the15DaysOldTime = ZonedDateTime.now().minusDays(15);
+        return repository.findByCreatedAtBefore(the15DaysOldTime);
+    }
+
+    // TODO remove this method
+    public List<Invoice> findInvoicesBy5MinsOld(){
+        ZonedDateTime the5MinsOldTime = ZonedDateTime.now().minusMinutes(5);
+        return repository.findByCreatedAtBefore(the5MinsOldTime);
     }
 }

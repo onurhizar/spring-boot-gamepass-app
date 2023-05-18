@@ -26,7 +26,7 @@ public class ContractRecordService {
                 .name(subscription.getName())
                 .monthlyFee(subscription.getMonthlyFee())
                 .duration(subscription.getDuration())
-                .isActive(subscription.isActive())
+                .active(subscription.isActive())
                 .user(user)
                 .createdDate(ZonedDateTime.now())
                 .build());
@@ -57,4 +57,7 @@ public class ContractRecordService {
         repository.save(contractRecord); // TODO : no need to contractRepository save?
     }
 
+    public List<ContractRecord> findActiveContractRecords() {
+        return repository.findByActiveIsTrue();
+    }
 }

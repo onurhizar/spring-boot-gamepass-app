@@ -15,4 +15,12 @@ public class Invoice extends BaseEntity {
 
     @ManyToOne
     private ContractRecord contractRecord;
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "fee=" + fee +
+                ", contractRecordID=" + contractRecord.getId() +
+                '}';
+    }
 }

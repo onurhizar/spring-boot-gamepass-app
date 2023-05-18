@@ -143,4 +143,11 @@ public class UserService {
         repository.save(user);
         return user;
     }
+
+    public void downgradeUserRoleToGuest(String userId){
+        User user = findById(userId);
+        user.setRole(UserRole.GUEST);
+        repository.save(user);
+    }
+
 }
