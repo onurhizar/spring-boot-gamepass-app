@@ -44,7 +44,7 @@ public class ScheduleService {
         log.info("Odd minute");
         findPassedInvoicesAndExtractTheirUserIds();
 
-        List<Invoice> invoices = invoiceRepository.findByContractRecordUserIdAndFeeNot("aa59d163-5e7e-4290-b6ac-b901b0b4543a", 0); // TODO remove this line
+        List<Invoice> invoices = invoiceService.findAllNonPaidPastDueInvoicesForSpecificUser("aa59d163-5e7e-4290-b6ac-b901b0b4543a"); // TODO remove this line
         log.info("Specific user invoices:");
         for (Invoice invoice : invoices) {
             log.info("Invoice: "+invoice);

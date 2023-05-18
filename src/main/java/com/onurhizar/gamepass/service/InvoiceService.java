@@ -67,9 +67,9 @@ public class InvoiceService {
             ContractRecord contractRecord = invoice.getContractRecord();
             User user = contractRecord.getUser();
             if (user.getRole().equals(UserRole.GUEST)){
-                // check if all invoices are paid, if it is true, make user MEMBER again
+                // check if all past-due invoices have been paid, if true, make user MEMBER again
                 //List<Invoice> unpaidInvoices = repository.findByContractRecordAndFeeIsNot(contractRecord.getId(), 0);
-                List<Invoice> unpaidInvoices = repository.findByContractRecordUserIdAndFeeNot(user.getId(), 0);
+                List<Invoice> unpaidInvoices = findAllNonPaidPastDueInvoicesForSpecificUser(user.getId());
                 System.out.println("unpaid invoices:"+unpaidInvoices.size());
                 for (Invoice unpaidInvoice : unpaidInvoices) {
                     System.out.println(unpaidInvoice);
@@ -102,6 +102,11 @@ public class InvoiceService {
     public List<Invoice> findNonPaidInvoicesBy5MinsOld(){
         ZonedDateTime the5MinsOldTime = ZonedDateTime.now().minusMinutes(5).plusSeconds(2);
         return repository.findByCreatedAtBeforeAndFeeIsNot(the5MinsOldTime, 0);
+    }
+
+    public List<Invoice> findAllNonPaidPastDueInvoicesForSpecificUser(String userId){
+        ZonedDateTime the5MinsOldTime = ZonedDateTime.now().minusMinutes(5).plusSeconds(2);
+        return repository.findByContractRecordUserIdAndFeeNotAndCreatedAtBefore(userId, 0, the5MinsOldTime);
     }
 
     // TODO remove this method, resolve circular dependency
