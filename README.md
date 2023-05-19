@@ -69,7 +69,8 @@ This is a Spring Boot application that clones the XBOX GamePass platform as a pr
 - [x] CommonEntity for createdAt and updatedAt
 - [x] Dockerfile
 - [x] Other entities
-- [ ] Business Logic
+- [x] Business Logic
+- [x] Cron Expressions for Production
 - [x] Downgrade from Java 17 to Java 8
 - [ ] Review and Refactoring
 
