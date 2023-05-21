@@ -9,6 +9,7 @@ import com.onurhizar.gamepass.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class UserService {
     private final CategoryService categoryService;
     private final SubscriptionService subscriptionService;
     private final ContractRecordService contractRecordService;
+    private final InvoiceService invoiceService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -69,6 +71,7 @@ public class UserService {
     }
 
 
+    @Transactional
     public ContractRecord subscribe(String userId, String subscriptionId){
         User user = findById(userId);
         Subscription subscription = subscriptionService.findById(subscriptionId);
@@ -80,10 +83,17 @@ public class UserService {
         ContractRecord contractRecord = user.getContractRecord();
 
         if (contractRecord != null){
-            if (contractRecord.getDuration() >= subscription.getDuration())
-            {
+            // instead of checking remaining duration, first check name of subscription
+            if (contractRecord.getName().equals(subscription.getName()))
                 throw new UnacceptableRequestException("you can only upgrade your subscription");
-            }
+            else if (contractRecord.getDuration() >= subscription.getDuration())
+                throw new UnacceptableRequestException("you can only upgrade your subscription");
+            /* TODO : note that if subscription entity name and contract record duration changes
+             * the algorithm will think there is a new subscription and will allow the user to "upgrade"
+             * to prevent this, we should store source subscription id in contract record entity to check
+             * */
+
+            findInvoicesInCurrentMonthAndUpdateTheirFees(contractRecord, subscription);
         }
 
         // when a guest user buys a subscription, assign a member role
@@ -110,6 +120,14 @@ public class UserService {
         return followHelper(userId, categoryId, false);
     }
 
+    private void findInvoicesInCurrentMonthAndUpdateTheirFees(ContractRecord contractRecord, Subscription subscription){
+        // find invoices in current month to update their fees
+        List<Invoice> invoicesInThisMonth = invoiceService.findInvoicesOfContractRecordInCurrentMonth(
+                contractRecord.getId());
+        for (Invoice invoice : invoicesInThisMonth){
+            invoice.setFee(subscription.getMonthlyFee());
+        }
+    }
 
     /**
      * Helper method to avoid duplicate codes.

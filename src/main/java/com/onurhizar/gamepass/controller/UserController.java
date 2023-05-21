@@ -42,6 +42,7 @@ public class UserController {
         userService.deleteUser(userId);
    }
 
+   /** subscribe or upgrade to a subscription */
    @PostMapping("{userId}/subscribe/{subscriptionId}")
    public void subscribe(@PathVariable String userId, @PathVariable String subscriptionId){
         userService.subscribe(userId,subscriptionId);

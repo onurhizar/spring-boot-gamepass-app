@@ -99,6 +99,14 @@ public class InvoiceService {
         return repository.findByContractRecordUserIdAndFeeNotAndCreatedAtBefore(userId, 0, the5MinsOldTime);
     }
 
+    /** lists invoices for a user that are created in the last 1 month */
+    public List<Invoice> findInvoicesOfContractRecordInCurrentMonth(String contractRecordId){
+        // get current month's first day from hour 00:00:00.000
+        ZonedDateTime currentMonthStartingTime = ZonedDateTime.now().withDayOfMonth(1)
+                .withHour(0).withMinute(0).withSecond(0).withNano(0);
+        return repository.findByContractRecordIdAndCreatedAtAfter(contractRecordId, currentMonthStartingTime);
+    }
+
     // TODO remove this method later, resolve circular dependency
     private void upgradeUserRoleToMember(String userId){
         User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
