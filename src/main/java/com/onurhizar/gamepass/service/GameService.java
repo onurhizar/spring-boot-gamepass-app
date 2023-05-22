@@ -10,6 +10,8 @@ import com.onurhizar.gamepass.repository.CategoryRepository;
 import com.onurhizar.gamepass.repository.GameRepository;
 import com.onurhizar.gamepass.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,9 +33,8 @@ public class GameService {
         return repository.findById(gameId).orElseThrow(EntityNotFoundException::new);
     }
 
-    public List<GameResponse> listGames(){
-        return repository.findAll().stream()
-                .map(GameResponse::fromEntity).collect(Collectors.toList());
+    public Page<GameResponse> listGames(Pageable pageable){
+        return repository.findAll(pageable).map(GameResponse::fromEntity);
     }
 
     public Game getGame(String gameId) {

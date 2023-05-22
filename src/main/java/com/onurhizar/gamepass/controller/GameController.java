@@ -4,6 +4,9 @@ import com.onurhizar.gamepass.model.request.CreateGameRequest;
 import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.service.GameService;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +19,8 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public List<GameResponse> listGames(){
-        return gameService.listGames();
+    public Page<GameResponse> listGames(@ParameterObject Pageable pageable) {
+        return gameService.listGames(pageable);
     }
 
     @GetMapping("{gameId}")
