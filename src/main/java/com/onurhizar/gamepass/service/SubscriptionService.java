@@ -20,4 +20,11 @@ public class SubscriptionService {
     public Subscription findById(String id){
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
+
+    public Subscription deleteById(String id) {
+        Subscription subscription = findById(id);
+        subscription.setActive(false); // soft delete
+        return repository.save(subscription);
+    }
+
 }

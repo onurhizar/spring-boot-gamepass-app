@@ -8,7 +8,7 @@ VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'admin@mail.com', 'Onur', 'Hıza
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
 VALUES ('12a06d89-97af-4fa5-a7b1-ea5c6c2e0d5e', 'mervan@mail.com', 'Hamit Mervan', 'Çelik',
         '$2a$10$OIy6it3osM29MGAICIw2veZ3uHsY3iOvZd5JuBxMWFDDbLAYvQaaK', 'ADMIN', true,
-        'c4bfe252-8de9-41fa-ae94-d55d78f1adae', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
+        '103195dc-3049-42a7-bbf0-4371f78327f1', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
 
 -- password of rest is 123456
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)

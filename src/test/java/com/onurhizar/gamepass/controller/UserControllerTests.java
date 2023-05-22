@@ -19,24 +19,30 @@ public class UserControllerTests extends AbstractIntegrationTest {
     private AuthTokenHelper authTokenHelper;
 
     @Test
-    void whenGetRequest_returnUsers(){
-        ResponseEntity<String> response = restTemplate.getForEntity("/user", String.class);
+    void givenAdminAuth_whenGetRequest_returnUsers(){
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange("/user", HttpMethod.GET, request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    void givenExistingUserId_whenGetUser_thenStatus200(){
+    void givenAdminAuthAndExistingUserId_whenGetUser_thenStatus200(){
         String userId = "5b8a3d25-2b7a-4683-89ed-ac0e42cdc879";
         String url = "/user/"+userId;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    void givenNotExistingUserId_whenGetUser_thenStatus404(){
+    void givenAdminAuthNotExistingUserId_whenGetUser_thenStatus404(){
         String userId = "111a3d25-2b7a-4683-89ed-ac0e42cdc879";
         String url = "/user/"+userId;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
