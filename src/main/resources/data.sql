@@ -1,9 +1,16 @@
--- User Data (admin pass is 123456)
+-- User Data (admin password : z&x!HL%gV$383$UDz@Ha)
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
 VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'admin@mail.com', 'Onur', 'Hızar',
-        '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'ADMIN', true,
+        '$2a$10$zMU1xrd/RVdor9D/YD8uxO7N8GlRLIW1ZRHBY4HEvKAZ/aZNlc4uG', 'ADMIN', true,
         '72014de5-1e02-4b31-b9f4-0792ce889b83', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
 
+-- password : 62jryMC%jQ4N#HM@k7MZ
+INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
+VALUES ('12a06d89-97af-4fa5-a7b1-ea5c6c2e0d5e', 'mervan@mail.com', 'Hamit Mervan', 'Çelik',
+        '$2a$10$OIy6it3osM29MGAICIw2veZ3uHsY3iOvZd5JuBxMWFDDbLAYvQaaK', 'ADMIN', true,
+        'c4bfe252-8de9-41fa-ae94-d55d78f1adae', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
+
+-- password of rest is 123456
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
 VALUES ('aa59d163-5e7e-4290-b6ac-b901b0b4543a', 'test@mail.com', 'Test', 'User',
         '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'MEMBER', true,
