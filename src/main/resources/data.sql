@@ -36,6 +36,24 @@ VALUES ('66403305-972b-42b1-a71a-d7bb2828eebe', 'PUZZLE', '10b455da-7e5a-4dc3-b4
 INSERT INTO category (id, name, parent_id, is_super_category, created_at, updated_at)
 VALUES ('50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4', 'RACING', '10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e', false, now(), now());
 
+-- children of PUZZLE category
+INSERT INTO category (id, name, parent_id, is_super_category, created_at, updated_at)
+VALUES ('932fbf36-b7f9-4c5a-9f6d-ef8b0905e0dc', 'TRADITIONAL PUZZLE', '66403305-972b-42b1-a71a-d7bb2828eebe', false, now(), now());
+
+INSERT INTO category (id, name, parent_id, is_super_category, created_at, updated_at)
+VALUES ('06046e4c-f8f1-493c-9919-49e0856462cc', 'STRATEGY PUZZLE', '66403305-972b-42b1-a71a-d7bb2828eebe', false, now(), now());
+
+-- children of RACING category
+INSERT INTO category (id, name, parent_id, is_super_category, created_at, updated_at)
+VALUES ('75d1169f-11f9-4c6f-8a9d-4a30dc9bc282', 'CAR RACING', '50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4', false, now(), now());
+
+INSERT INTO category (id, name, parent_id, is_super_category, created_at, updated_at)
+VALUES ('2f1036ba-44a1-4c4e-9867-18386a7d4910', 'BIKE RACING', '50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4', false, now(), now());
+
+-- children of CAR RACING category
+INSERT INTO category (id, name, parent_id, is_super_category, created_at, updated_at)
+VALUES ('1d063f5a-d1f5-4388-afb5-349464a79ac7', 'RALLY RACING', '75d1169f-11f9-4c6f-8a9d-4a30dc9bc282', false, now(), now());
+
 
 -- Game Data
 INSERT INTO game (id, title, created_at, updated_at)
@@ -47,6 +65,17 @@ VALUES ('cbf27a05-9abe-40c0-a943-ede62f9ca3de', 'NFS Most Wanted', now(), now())
 INSERT INTO game (id, title, created_at, updated_at)
 VALUES ('421450be-91e2-4184-8450-3dcc12a33e63', 'CS:GO', now(), now());
 
+INSERT INTO game (id, title, created_at, updated_at)
+VALUES ('559139b9-ff8c-4713-9000-3332dce26359', 'Sudoku', now(), now());
+
+INSERT INTO game (id, title, created_at, updated_at)
+VALUES ('3e4a7ce1-da2c-4267-9b93-96493be145f2', 'MotoGP 2023', now(), now());
+
+INSERT INTO game (id, title, created_at, updated_at)
+VALUES ('f724e3e0-d0a4-49cb-a695-5e5a184ec27f', 'Dirt Rally', now(), now());
+
+INSERT INTO game (id, title, created_at, updated_at)
+VALUES ('1f9e9b57-4f30-4366-a00b-21993248967c', 'Dirt Rally 2', now(), now());
 
 -- categories_games join table
 INSERT INTO categories_games (category_id, game_id)
@@ -60,6 +89,18 @@ VALUES ('10b455da-7e5a-4dc3-b4f5-b526c1c9ab4e', '421450be-91e2-4184-8450-3dcc12a
 
 INSERT INTO categories_games (category_id, game_id)
 VALUES ('66403305-972b-42b1-a71a-d7bb2828eebe', 'b4dceb23-d2ea-4432-aa7a-c71b4b15bcee'); -- puzzle : portal 3
+
+INSERT INTO categories_games (category_id, game_id)
+VALUES ('932fbf36-b7f9-4c5a-9f6d-ef8b0905e0dc', '559139b9-ff8c-4713-9000-3332dce26359'); -- traditional puzzle : sudoku
+
+INSERT INTO categories_games (category_id, game_id)
+VALUES ('2f1036ba-44a1-4c4e-9867-18386a7d4910', '3e4a7ce1-da2c-4267-9b93-96493be145f2'); -- bike racing : MotoGP 2023
+
+INSERT INTO categories_games (category_id, game_id)
+VALUES ('1d063f5a-d1f5-4388-afb5-349464a79ac7', 'f724e3e0-d0a4-49cb-a695-5e5a184ec27f'); -- rally racing : Dirt Rally
+
+INSERT INTO categories_games (category_id, game_id)
+VALUES ('1d063f5a-d1f5-4388-afb5-349464a79ac7', '1f9e9b57-4f30-4366-a00b-21993248967c'); -- rally racing : Dirt Rally 2
 
 
 -- User Interest : favorite games : users_games join table

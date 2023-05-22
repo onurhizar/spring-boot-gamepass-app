@@ -39,4 +39,9 @@ public class GameController {
     public void deleteGame(@PathVariable String gameId){
         gameService.deleteGame(gameId);
     }
+
+    @PostMapping("{gameId}/category/{categoryId}")
+    public GameResponse addCategoryToGame(@PathVariable String gameId, @PathVariable String categoryId){
+        return GameResponse.fromEntity(gameService.addCategoryToGame(gameId, categoryId));
+    }
 }

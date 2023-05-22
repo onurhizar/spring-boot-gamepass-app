@@ -21,6 +21,7 @@ public class GameControllerTests extends AbstractIntegrationTest {
     private static String baseUrl = "/game";
     private static String existingGameId = "b4dceb23-d2ea-4432-aa7a-c71b4b15bcee";
     private static String notExistingGameId = "aadceb23-d2ea-4432-aa7a-c71b4b15bcee";
+    private static String categoryToBeAdded = "75d1169f-11f9-4c6f-8a9d-4a30dc9bc282"; // CAR RACING category
 
     @Test
     void whenGetRequest_thenStatus200(){
@@ -61,6 +62,16 @@ public class GameControllerTests extends AbstractIntegrationTest {
         CreateGameRequest request = new CreateGameRequest("updated game title");
         HttpEntity<CreateGameRequest> httpEntity = new HttpEntity<>(request, headers);
         ResponseEntity<GameResponse> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, GameResponse.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+    }
+
+    @Test
+    void givenAdminToken_whenAddCategoryToGame_thenStatus200() {
+        String url = baseUrl + "/" + existingGameId + "/category/" + categoryToBeAdded;
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<CreateGameRequest> httpEntity = new HttpEntity<>(headers);
+        ResponseEntity<GameResponse> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, GameResponse.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
     }
