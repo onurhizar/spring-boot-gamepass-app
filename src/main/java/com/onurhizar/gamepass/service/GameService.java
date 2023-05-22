@@ -73,4 +73,18 @@ public class GameService {
 
         repository.deleteById(gameId);
     }
+
+    public Game addCategoryToGame(String gameId, String categoryId) {
+        Game game = findGameById(gameId);
+        Category category = categoryRepository.findById(categoryId).orElseThrow(EntityNotFoundException::new);
+
+        // check if already exists
+        if (game.getCategories().contains(category)) return game;
+
+        game.getCategories().add(category);
+        category.getGames().add(game);
+        saveGame(game);
+        categoryRepository.save(category);
+        return game;
+    }
 }
