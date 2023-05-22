@@ -10,8 +10,10 @@ import com.onurhizar.gamepass.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,7 +68,8 @@ public class CategoryService {
 
 
     // TODO check if children categories exists, handle them
-    public void deleteCategory(String id) {
+    /** detach users first, then delete category */
+    private void deleteCategory(String id) {
         Category category = repository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
         if (category.isSuperCategory())
@@ -79,5 +82,41 @@ public class CategoryService {
         }
 
         repository.deleteById(id);
+    }
+
+    /** Returns a stack, the most leaf is at the top, root stays at the bottom to implement remove orphan logic */
+    public Stack<Category> findAllChildrenCategories(String categoryId){
+        Category rootCategory = repository.findById(categoryId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        Stack<Category> stack = new Stack<>();
+        traverseAllChildrenOfCategory(rootCategory, stack);
+
+        // we need to reverse the stack to iterate from leaf to root
+        Stack<Category> reversedStack = new Stack<>();
+        while (!stack.isEmpty()) reversedStack.push(stack.pop());
+        return reversedStack;
+    }
+
+
+    /** Returns reversed stack, starts from leaf and goes to root category */
+    private Stack<Category> traverseAllChildrenOfCategory(Category rootCategory, Stack<Category> stack) {
+        List<Category> childrenCategories = repository.findCategoriesByParentId(rootCategory.getId());
+
+        if (!childrenCategories.isEmpty()) // first, iterate over children
+            for (Category category : childrenCategories)
+                traverseAllChildrenOfCategory(category, stack);
+
+        stack.push(rootCategory); // then push self to stack
+        return stack; // root node stays at the top of the stack, need to reverse it before using
+    }
+
+    
+    /** orphan removal logic, remove leaf nodes first then self */
+    public void deleteCategoryWithItsChildren(String categoryId){
+        Stack<Category> stack = findAllChildrenCategories(categoryId);
+        while (!stack.isEmpty()){
+            deleteCategory(stack.pop().getId());
+        }
     }
 }

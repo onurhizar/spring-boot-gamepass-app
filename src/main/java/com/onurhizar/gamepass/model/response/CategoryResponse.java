@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 public class CategoryResponse {
 
+    private String id;
     private String name;
     private boolean isSuperCategory;
     private List<String> games;
@@ -23,6 +24,7 @@ public class CategoryResponse {
 
     public static CategoryResponse fromEntity(Category category){
         return new CategoryResponse(
+                category.getId(),
                 category.getName(),
                 category.isSuperCategory(),
                 category.getGames().stream().map(Game::getTitle).collect(Collectors.toList()),

@@ -9,7 +9,9 @@ import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, String> {
 
-    public Optional<Category> findCategoryByName(String name);
+    Optional<Category> findCategoryByName(String name);
 
-    public List<Category> findCategoriesByGames(Game game);
+    List<Category> findCategoriesByGames(Game game);
+
+    List<Category> findCategoriesByParentId(String parentId);
 }

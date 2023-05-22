@@ -30,4 +30,14 @@ public class Category extends BaseEntity {
     @JsonIgnoreProperties("categories")
     @Builder.Default
     private List<Game> games = new LinkedList<>();
+
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id='" + getId() + '\'' +
+                "name='" + name + '\'' +
+                ", isSuperCategory=" + isSuperCategory +
+                '}';
+    }
 }
