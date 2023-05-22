@@ -2,6 +2,7 @@ package com.onurhizar.gamepass.service;
 
 import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.Category;
+import com.onurhizar.gamepass.model.entity.Game;
 import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.response.CategoryResponse;
 import com.onurhizar.gamepass.model.request.UpdateCategoryRequest;
@@ -10,11 +11,10 @@ import com.onurhizar.gamepass.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,13 +41,19 @@ public class CategoryService {
     }
 
     public List<CategoryResponse> listCategories(){
-        return repository.findAll().stream()
-                .map(CategoryResponse::fromEntity).collect(Collectors.toList());
+        List<CategoryResponse> categoryResponses = new LinkedList<>();
+        List<Category> categories = repository.findAll();
+        for (Category category : categories) {
+            appendAllGamesFromChildrenCategories(category.getId(), category.getGames());
+            categoryResponses.add(CategoryResponse.fromEntity(category));
+        }
+        return categoryResponses;
     }
 
     public Category findCategoryById(String categoryId){
         Category category = repository.findById(categoryId)
                 .orElseThrow(EntityNotFoundException::new);
+        appendAllGamesFromChildrenCategories(categoryId, category.getGames());
         return category;
     }
 
@@ -119,4 +125,18 @@ public class CategoryService {
             deleteCategory(stack.pop().getId());
         }
     }
+
+
+    /** Appends all games of children categories' games, if same game exists in the list, does not append */
+    private List<Game> appendAllGamesFromChildrenCategories(String categoryId, List<Game> games){
+        Stack<Category> stack = findAllChildrenCategories(categoryId);
+
+        for (Category category : stack) {
+            List<Game> gamesOfChildrenCategory = category.getGames();
+            for (Game game : gamesOfChildrenCategory)
+                if (!games.contains(game)) games.add(game);
+        }
+        return games;
+    }
+
 }
