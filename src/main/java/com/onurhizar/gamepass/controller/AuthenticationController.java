@@ -4,6 +4,8 @@ import com.onurhizar.gamepass.model.request.auth.LoginRequest;
 import com.onurhizar.gamepass.model.request.auth.RegisterRequest;
 import com.onurhizar.gamepass.model.response.AuthenticationResponse;
 import com.onurhizar.gamepass.service.AuthenticationService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +36,13 @@ public class AuthenticationController {
 
     @GetMapping("/verify/email")
     // TODO email service is later, for now it just sends HTTP response
-    public String sendVerificationCodeToEmail(@RequestParam String email){
+    public String sendVerificationCodeToEmail(@RequestParam String email, HttpServletRequest request){
+        String domain = request.getServerName();
+        int port = request.getServerPort();
         String code = authenticationService.sendVerificationCodeToEmail(email);
-        return "Your verification link is http://localhost:8080/verify?code="+code;
+        if (port == 80) return "Your verification link is http://" + domain + "/verify?code=" + code;
+        else if (port == 443) return "Your verification link is https://" + domain + "/verify?code=" + code;
+        return "Your verification link is http://" + domain + ":" + port + "/verify?code=" + code;
     }
 
 
@@ -49,9 +55,14 @@ public class AuthenticationController {
 
     @GetMapping("/recover/email/{userId}")
     // TODO email service is later, for now it just sends HTTP response
-    public String sendRecoveryCodeToEmail(@PathVariable String userId){
+    public String sendRecoveryCodeToEmail(@PathVariable String userId, HttpServletRequest request){
+        String domain = request.getServerName();
+        int port = request.getServerPort();
         String code = authenticationService.createRecoveryCode(userId);
-        return "Your password recovery link is http://localhost:8080/recover?code="+code;
+
+        if (port == 80) return "Your verification link is http://" + domain + "/recover?code=" + code;
+        else if (port == 443) return "Your verification link is https://" + domain + "/recover?code=" + code;
+        return "Your verification link is http://" + domain + ":" + port + "/recover?code=" + code;
     }
 
 }
