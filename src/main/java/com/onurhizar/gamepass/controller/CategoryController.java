@@ -39,6 +39,6 @@ public class CategoryController {
 
     @DeleteMapping("{id}")
     public void deleteCategory(@PathVariable String id){
-        categoryService.deleteCategoryWithItsChildren(id);
+        categoryService.deleteCategoryByAssignChildrenToGrandParent(id);
     }
 }
