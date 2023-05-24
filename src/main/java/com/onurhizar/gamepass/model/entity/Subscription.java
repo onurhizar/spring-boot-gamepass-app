@@ -2,14 +2,14 @@ package com.onurhizar.gamepass.model.entity;
 
 import javax.persistence.Entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Subscription extends BaseEntity {
 
     private String name;
