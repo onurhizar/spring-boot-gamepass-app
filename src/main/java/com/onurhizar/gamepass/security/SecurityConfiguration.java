@@ -30,22 +30,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register").permitAll()
-                .antMatchers("/verify/**", "/recover/**").permitAll()
-                .antMatchers("/swagger-ui/index.html", "/v3/api-docs").permitAll()  // Swagger OpenAPI
 
                 // ADMIN OR SELF ROUTES RESTRICTIONS
-                .antMatchers(HttpMethod.GET, "/user/**", "/user/**/invoice").hasAnyAuthority("ADMIN", "SELF")
-                .antMatchers(HttpMethod.PUT, "/user/**").hasAnyAuthority("ADMIN", "SELF")
+                .antMatchers(HttpMethod.GET, "/user/*", "/user/**/invoice").hasAnyAuthority("ADMIN", "SELF")
+                .antMatchers(HttpMethod.PUT, "/user/*").hasAnyAuthority("ADMIN", "SELF")
 
 
                 // SELF ONLY ROUTES RESTRICTIONS
-                // TODO /user/**/game route is not implemented yet
-                .antMatchers(HttpMethod.GET, "/user/**/game", "/user/**/game/**",
-                        "/user/**/category", "/user/**/category/**").hasAuthority("SELF")
-                .antMatchers(HttpMethod.POST, "/user/**/subscribe/**","/user/**/game/**/favorite",
-                        "/user/**/game/**/unfavorite", "/user/**/category/**/follow",
-                        "/user/**/category/**/unfollow", "/invoice/**/pay").hasAuthority("SELF")
+                .antMatchers(HttpMethod.GET, "/user/*/game", "/user/*/game/*",
+                        "/user/*/category", "/user/*/category/*").hasAuthority("SELF")
+                .antMatchers(HttpMethod.POST, "/user/*/subscribe/*","/user/*/game/*/favorite",
+                        "/user/*/game/*/unfavorite", "/user/*/category/*/follow",
+                        "/user/*/category/*/unfollow", "/invoice/*/pay").hasAuthority("SELF")
 
 
                 // ADMIN ONLY ROUTES RESTRICTIONS
@@ -55,7 +51,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/subscription/**","/category/**","/game/**", "/user/**")
                 .hasAuthority("ADMIN")
 
-                .anyRequest().permitAll() //.authenticated()
+
+                // PUBLIC ROUTES
+                .antMatchers("/", "/login", "/register").permitAll()
+                .antMatchers("/verify/**", "/recover/**").permitAll()
+                .antMatchers("/swagger-ui/index.html", "/v3/api-docs").permitAll()  // Swagger OpenAPI
+                .antMatchers(HttpMethod.GET, "/subscription", "/subscription/*",
+                        "/category", "/category/*", "/game", "/game/*" ).permitAll()
+
+
+                .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

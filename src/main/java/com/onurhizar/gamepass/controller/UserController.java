@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("{userId}")
     public UserResponse getUser(@PathVariable String userId){
-        return UserResponse.fromEntity(userService.getUserById(userId));
+        return UserResponse.fromEntity(userService.findById(userId));
     }
 
     @PostMapping
