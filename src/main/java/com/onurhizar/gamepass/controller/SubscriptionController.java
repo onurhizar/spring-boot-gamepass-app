@@ -14,16 +14,17 @@ import java.util.List;
 @RequestMapping("/subscription")
 @RequiredArgsConstructor
 public class SubscriptionController {
+    
     private final SubscriptionService subscriptionService;
 
     @GetMapping
-    public List<Subscription> listSubscriptions(){
+    public List<SubscriptionResponse> listSubscriptions(){
         return subscriptionService.listSubscriptions();
     }
 
     @GetMapping("/{id}")
-    public Subscription getSubscriptionById(@PathVariable String id){
-        return subscriptionService.findById(id);
+    public SubscriptionResponse getSubscriptionById(@PathVariable String id){
+        return SubscriptionResponse.fromEntity(subscriptionService.findById(id));
     }
 
     @PostMapping
@@ -37,10 +38,8 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("/{id}")
-    public Subscription deleteSubscriptionById(@PathVariable String id){
-        return subscriptionService.deleteById(id);
+    public SubscriptionResponse deleteSubscriptionById(@PathVariable String id){
+        return SubscriptionResponse.fromEntity(subscriptionService.deleteById(id));
     }
-
-    // TODO add other CRUD operations
 
 }

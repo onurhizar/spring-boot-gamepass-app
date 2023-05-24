@@ -4,19 +4,21 @@ import com.onurhizar.gamepass.exception.EntityNotFoundException;
 import com.onurhizar.gamepass.model.entity.Subscription;
 import com.onurhizar.gamepass.model.request.CreateSubscriptionRequest;
 import com.onurhizar.gamepass.model.request.UpdateSubscriptionRequest;
+import com.onurhizar.gamepass.model.response.SubscriptionResponse;
 import com.onurhizar.gamepass.repository.SubscriptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class SubscriptionService {
     private final SubscriptionRepository repository;
 
-    public List<Subscription> listSubscriptions(){
-        return repository.findAll();
+    public List<SubscriptionResponse> listSubscriptions(){
+        return repository.findAll().stream().map(SubscriptionResponse::fromEntity).collect(Collectors.toList());
     }
 
     public Subscription findById(String id){
