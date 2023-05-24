@@ -71,7 +71,7 @@ public class UserService {
     @Transactional
     public ContractRecord subscribe(String userId, String subscriptionId){
         User user = findById(userId);
-        Subscription subscription = subscriptionService.findById(subscriptionId);
+        Subscription newSubscription = subscriptionService.findById(subscriptionId);
 
         // check if user is verified
         if(!user.isVerified()) throw new UnacceptableRequestException("only verified users can subscribe");
@@ -80,24 +80,17 @@ public class UserService {
         ContractRecord contractRecord = user.getContractRecord();
 
         if (contractRecord != null){
-            // instead of checking remaining duration, first check name of subscription
-            if (contractRecord.getName().equals(subscription.getName()))
+            if (contractRecord.getMonthlyFee() >= newSubscription.getMonthlyFee())
                 throw new UnacceptableRequestException("you can only upgrade your subscription");
-            else if (contractRecord.getDuration() >= subscription.getDuration())
-                throw new UnacceptableRequestException("you can only upgrade your subscription");
-            /* TODO : note that if subscription entity name and contract record duration changes
-             * the algorithm will think there is a new subscription and will allow the user to "upgrade"
-             * to prevent this, we should store source subscription id in contract record entity to check
-             * */
 
-            findInvoicesInCurrentMonthAndUpdateTheirFees(contractRecord, subscription);
+            findInvoicesInCurrentMonthAndUpdateTheirFees(contractRecord, newSubscription);
         }
 
         // when a guest user buys a subscription, assign a member role
         if (user.getRole() == UserRole.GUEST) user.setRole(UserRole.MEMBER);
 
-        if (contractRecord == null) return contractRecordService.addContract(user, subscription);
-        else return contractRecordService.updateContract(contractRecord, subscription);
+        if (contractRecord == null) return contractRecordService.addContract(user, newSubscription);
+        else return contractRecordService.updateContract(contractRecord, newSubscription);
     }
 
     // Interests : Follow Categories and Favorite Games
