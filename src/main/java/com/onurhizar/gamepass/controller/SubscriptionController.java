@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/subscription")
 @RequiredArgsConstructor
 public class SubscriptionController {
-    
+
     private final SubscriptionService subscriptionService;
 
     @GetMapping
