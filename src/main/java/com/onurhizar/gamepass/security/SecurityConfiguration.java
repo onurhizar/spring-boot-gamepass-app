@@ -55,12 +55,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // PUBLIC ROUTES
                 .antMatchers("/", "/login", "/register").permitAll()
                 .antMatchers("/verify/**", "/recover/**").permitAll()
-                .antMatchers("/swagger-ui/index.html", "/v3/api-docs").permitAll()  // Swagger OpenAPI
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Swagger OpenAPI
                 .antMatchers(HttpMethod.GET, "/subscription", "/subscription/*",
                         "/category", "/category/*", "/game", "/game/*" ).permitAll()
 
 
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

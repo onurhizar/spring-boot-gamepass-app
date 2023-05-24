@@ -136,7 +136,9 @@ public class UserService {
         List<Game> games = user.getFavoriteGames();
 
         if (isAddition && !games.contains(game)) games.add(game);
-        else games.remove(game);
+        else if (!isAddition && games.contains(game)) games.remove(game);
+        else return user; // there is no change, don't save anything just return the user
+
         repository.save(user);
         return user;
     }
@@ -154,7 +156,9 @@ public class UserService {
         List<Category> categories = user.getFollowedCategories();
 
         if (isFollow && !categories.contains(category)) categories.add(category);
-        else categories.remove(category);
+        else if (!isFollow && categories.contains(category)) categories.remove(category);
+        else return user; // there is no change, don't save anything just return the user
+
         repository.save(user);
         return user;
     }
