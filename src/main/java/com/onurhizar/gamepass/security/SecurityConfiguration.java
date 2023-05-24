@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 // ADMIN OR SELF ROUTES RESTRICTIONS
-                .antMatchers(HttpMethod.GET, "/user/*", "/user/**/invoice").hasAnyAuthority("ADMIN", "SELF")
+                .antMatchers(HttpMethod.GET, "/user/*", "/user/*/invoice").hasAnyAuthority("ADMIN", "SELF")
                 .antMatchers(HttpMethod.PUT, "/user/*").hasAnyAuthority("ADMIN", "SELF")
 
 

@@ -24,7 +24,7 @@ public class InvoiceController {
 
     @GetMapping("{id}")
     public InvoiceResponse getInvoice(@PathVariable String id){
-        return InvoiceResponse.fromEntity(invoiceService.getInvoice(id));
+        return InvoiceResponse.fromEntity(invoiceService.findById(id));
     }
 
     // POST /invoice/{id}/pay -> Invoice (owner of the invoice only)

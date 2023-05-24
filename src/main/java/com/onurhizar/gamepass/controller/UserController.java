@@ -1,7 +1,9 @@
 package com.onurhizar.gamepass.controller;
 
 import com.onurhizar.gamepass.model.request.CreateUserRequest;
+import com.onurhizar.gamepass.model.response.InvoiceResponse;
 import com.onurhizar.gamepass.model.response.UserResponse;
+import com.onurhizar.gamepass.service.InvoiceService;
 import com.onurhizar.gamepass.service.UserService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final InvoiceService invoiceService;
 
     @GetMapping
     public List<UserResponse> listUsers(){
@@ -48,10 +51,9 @@ public class UserController {
         userService.subscribe(userId,subscriptionId);
    }
 
-
-   // ADMIN or SELF authorization testing route, TODO remove later
-    @GetMapping("/admin-or-self-test/{userId}")
-    public String adminOrSelfResource(@PathVariable String userId){
-        return "You have reached protected resource.";
+   @GetMapping("{userId}/invoice")
+    public List<InvoiceResponse> getInvoicesOfUser(@PathVariable String userId){
+          return invoiceService.getInvoicesOfUser(userId);
     }
+
 }
