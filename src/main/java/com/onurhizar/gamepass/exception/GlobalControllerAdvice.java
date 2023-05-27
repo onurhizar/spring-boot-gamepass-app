@@ -61,5 +61,6 @@ public class GlobalControllerAdvice {
         log.error("Request Content Type: " + request.getContentType());
         log.error("Request User Agent Header: " + request.getHeader("User-Agent"));
         log.error("Request IP: " + request.getRemoteAddr());
+        log.error("Request X-Forwarded-For: " + request.getHeader("X-Forwarded-For"));
     }
 }
