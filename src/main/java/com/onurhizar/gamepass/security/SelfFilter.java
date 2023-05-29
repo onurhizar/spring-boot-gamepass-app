@@ -26,7 +26,7 @@ import java.util.List;
  * Then compares requested URL path if contains user's id.
  * If there is a match, it appends "SELF" authority to current user.
  *
- * Example: /user/5b8a3d25-2b7a-4683-89ed-ac0e42cdc879
+ * Example: /user/aa59d163-5e7e-4290-b6ac-b901b0b4543a
  * If the authenticated user has the same ID, it can reach the resource,
  * so that we can implement "ADMIN OR SELF" logic on some routes.
  *

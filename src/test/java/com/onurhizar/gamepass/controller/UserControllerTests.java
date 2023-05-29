@@ -28,7 +28,7 @@ public class UserControllerTests extends AbstractIntegrationTest {
 
     @Test
     void givenAdminAuthAndExistingUserId_whenGetUser_thenStatus200(){
-        String userId = "5b8a3d25-2b7a-4683-89ed-ac0e42cdc879";
+        String userId = "ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9";
         String url = "/user/"+userId;
         HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
         HttpEntity<String> request = new HttpEntity<>(null, headers);

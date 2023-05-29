@@ -18,7 +18,7 @@ public class ConfigRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ContractRecord contractRecord = createContractRecord("5b8a3d25-2b7a-4683-89ed-ac0e42cdc879",
+        ContractRecord contractRecord = createContractRecord("ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9",
                 "66b455da-665a-4dc1-b4f1-b526c1c9ab4e" ); // contract record of admin
         contractRecordService.createInvoice(contractRecord); // create invoice for admin
     }
