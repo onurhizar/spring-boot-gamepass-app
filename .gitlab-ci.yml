@@ -45,7 +45,7 @@ docker-deploy-job:
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_NAME .
-    - docker push registry.gitlab.com/onurhizar/spring-boot-deploy-practice
+    - docker push $IMAGE_NAME
     - ssh $SSH_USERNAME@$SSH_HOST "docker pull $IMAGE_NAME"
     - ssh $SSH_USERNAME@$SSH_HOST "docker stop $IMAGE_LABEL || true" # if stop command fails, don't exit the process
     - ssh $SSH_USERNAME@$SSH_HOST "docker container rm $IMAGE_LABEL || true" # if stop command fails, don't exit the process
