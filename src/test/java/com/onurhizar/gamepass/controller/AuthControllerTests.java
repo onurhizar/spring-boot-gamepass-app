@@ -67,7 +67,7 @@ public class AuthControllerTests extends AbstractIntegrationTest {
     @Test
     void whenLoginRequestWithValidCredentials_thenStatus200() {
         // given
-        LoginRequest request = new LoginRequest("admin@mail.com", "123456");
+        LoginRequest request = new LoginRequest("test@mail.com", "123456");
         HttpEntity<LoginRequest> requestEntity = new HttpEntity<>(request);
 
         // when

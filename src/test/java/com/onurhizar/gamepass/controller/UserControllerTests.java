@@ -19,29 +19,35 @@ public class UserControllerTests extends AbstractIntegrationTest {
     private AuthTokenHelper authTokenHelper;
 
     @Test
-    void whenGetRequest_returnUsers(){
-        ResponseEntity<String> response = restTemplate.getForEntity("/user", String.class);
+    void givenAdminAuth_whenGetRequest_returnUsers(){
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange("/user", HttpMethod.GET, request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    void givenExistingUserId_whenGetUser_thenStatus200(){
-        String userId = "5b8a3d25-2b7a-4683-89ed-ac0e42cdc879";
+    void givenAdminAuthAndExistingUserId_whenGetUser_thenStatus200(){
+        String userId = "ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9";
         String url = "/user/"+userId;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    void givenNotExistingUserId_whenGetUser_thenStatus404(){
+    void givenAdminAuthNotExistingUserId_whenGetUser_thenStatus404(){
         String userId = "111a3d25-2b7a-4683-89ed-ac0e42cdc879";
         String url = "/user/"+userId;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
-    void whenEmptyRequestPost_thenStatus400(){
+    void givenNoAuth_whenEmptyRequestPost_thenStatus403(){
         CreateUserRequest requestDto = new CreateUserRequest();
 
         HttpHeaders headers = new HttpHeaders();
@@ -49,11 +55,23 @@ public class UserControllerTests extends AbstractIntegrationTest {
         HttpEntity<CreateUserRequest> request = new HttpEntity<>(requestDto, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/user",request,String.class);
 
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+    }
+
+    @Test
+    void givenAdminAuth_whenEmptyRequestPost_thenStatus400(){
+        CreateUserRequest requestDto = new CreateUserRequest();
+
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<CreateUserRequest> request = new HttpEntity<>(requestDto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange("/user", HttpMethod.POST, request, String.class);
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
-    void whenValidRequestPost_thenStatus200(){
+    void givenNoAuth_whenValidRequestPost_thenStatus403(){
         CreateUserRequest requestDto = new CreateUserRequest();
         requestDto.setEmail("integration-test@mail.com");
         requestDto.setName("integration");
@@ -62,20 +80,38 @@ public class UserControllerTests extends AbstractIntegrationTest {
 
         ResponseEntity<String> response = restTemplate.postForEntity("/user", requestDto, String.class);
 
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+    }
+
+    @Test
+    void givenAdminAuth_whenValidRequestPost_thenStatus200(){
+        CreateUserRequest requestDto = new CreateUserRequest();
+        requestDto.setEmail("integration-test@mail.com");
+        requestDto.setName("integration");
+        requestDto.setSurname("test");
+        requestDto.setPassword("123456");
+
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<CreateUserRequest> request = new HttpEntity<>(requestDto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange("/user", HttpMethod.POST, request, String.class);
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
 
     @Test // TODO make it status 400
-    void whenEmailExistsWhilePost_thenStatus500(){
+    void givenAdminAuth_whenEmailExistsWhilePost_thenStatus500(){
         CreateUserRequest requestDto = new CreateUserRequest();
         requestDto.setEmail("admin@mail.com");
         requestDto.setName("integration");
         requestDto.setSurname("test");
         requestDto.setPassword("123456");
 
-        HttpEntity<CreateUserRequest> request = new HttpEntity<>(requestDto);
-        ResponseEntity<String> response = restTemplate.postForEntity("/user", request, String.class);
+        HttpHeaders headers = authTokenHelper.generateJwtHeader("admin@mail.com");
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange("/user", HttpMethod.POST, request, String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }

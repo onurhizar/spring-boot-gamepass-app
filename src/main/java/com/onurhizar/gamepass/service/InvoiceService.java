@@ -8,6 +8,7 @@ import com.onurhizar.gamepass.model.entity.Payment;
 import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import com.onurhizar.gamepass.model.request.PaymentRequest;
+import com.onurhizar.gamepass.model.response.InvoiceResponse;
 import com.onurhizar.gamepass.repository.InvoiceRepository;
 import javax.transaction.Transactional;
 
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,10 +35,6 @@ public class InvoiceService {
 
     public Invoice addInvoice(Invoice invoice){
         return repository.save(invoice);
-    }
-
-    public Invoice getInvoice(String id) {
-        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
 
@@ -112,5 +110,10 @@ public class InvoiceService {
         User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
         user.setRole(UserRole.MEMBER);
         userRepository.save(user);
+    }
+
+    public List<InvoiceResponse> getInvoicesOfUser(String userId) {
+        return repository.findByContractRecordUserId(userId).stream()
+                .map(InvoiceResponse::fromEntity).collect(Collectors.toList());
     }
 }

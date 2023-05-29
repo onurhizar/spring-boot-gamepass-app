@@ -30,17 +30,37 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/swagger-ui/index.html").permitAll()  // OpenAPI
-                .antMatchers("/v3/api-docs").permitAll()            // OpenAPI
-                .antMatchers("/user/admin-or-self-test/**") // FOR TESTING PURPOSES, TODO : remove later
-                .hasAnyAuthority("ADMIN", "SELF")
-                .antMatchers(HttpMethod.DELETE, "/user/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST, "/category/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/category/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/category/**").hasAuthority("ADMIN")
-                .anyRequest().permitAll() //.authenticated()
+
+                // ADMIN OR SELF ROUTES RESTRICTIONS
+                .antMatchers(HttpMethod.GET, "/user/*", "/user/*/invoice").hasAnyAuthority("ADMIN", "SELF")
+                .antMatchers(HttpMethod.PUT, "/user/*").hasAnyAuthority("ADMIN", "SELF")
+
+
+                // SELF ONLY ROUTES RESTRICTIONS
+                .antMatchers(HttpMethod.GET, "/user/*/game", "/user/*/game/*",
+                        "/user/*/category", "/user/*/category/*").hasAuthority("SELF")
+                .antMatchers(HttpMethod.POST, "/user/*/subscribe/*","/user/*/game/*/favorite",
+                        "/user/*/game/*/unfavorite", "/user/*/category/*/follow",
+                        "/user/*/category/*/unfollow", "/invoice/*/pay").hasAuthority("SELF")
+
+
+                // ADMIN ONLY ROUTES RESTRICTIONS
+                .antMatchers(HttpMethod.GET, "/user","/invoice","/invoice/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/subscription","/category/**","/game").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/subscription/**","/category/**","/game/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/subscription/**","/category/**","/game/**", "/user/**")
+                .hasAuthority("ADMIN")
+
+
+                // PUBLIC ROUTES
+                .antMatchers("/", "/login", "/register").permitAll()
+                .antMatchers("/verify/**", "/recover/**").permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Swagger OpenAPI
+                .antMatchers(HttpMethod.GET, "/subscription", "/subscription/*",
+                        "/category", "/category/*", "/game", "/game/*" ).permitAll()
+
+
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

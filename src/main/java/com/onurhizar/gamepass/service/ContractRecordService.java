@@ -39,9 +39,6 @@ public class ContractRecordService {
         return repository.save(contractRecord);
     }
 
-    public List<ContractRecord> findAll(){
-        return repository.findAll();
-    }
 
     @Transactional
     public void createInvoice(ContractRecord contractRecord){

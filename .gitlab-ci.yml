@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy
 
 services:
   - postgres:11.1
@@ -10,12 +11,15 @@ variables:
   POSTGRES_DB: gamepass
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: secretpassword
-  DB_URL: "jdbc:postgresql://postgres:5432/gamepass"
+  DB_URL: jdbc:postgresql://postgres:5432/gamepass
 
 build-job:
   stage: build
   image: maven:3-eclipse-temurin-8
   script: mvn clean package -DskipTests
+  artifacts:
+    paths:
+      - target/gamepass-0.0.1-SNAPSHOT.jar
 
 integration-test-job:
   stage: test
@@ -23,3 +27,30 @@ integration-test-job:
   script: mvn test
   variables:
     DOCKER_HOST: tcp://docker:2375
+
+docker-deploy-job:
+  stage: deploy
+  image: docker:dind
+  variables:
+    IMAGE_NAME: registry.gitlab.com/onurhizar/spring-boot-gamepass-app
+    IMAGE_LABEL: gamepass-image
+  before_script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+    - ssh $SSH_USERNAME@$SSH_HOST "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_NAME .
+    - docker push registry.gitlab.com/onurhizar/spring-boot-deploy-practice
+    - ssh $SSH_USERNAME@$SSH_HOST "docker pull $IMAGE_NAME"
+    - ssh $SSH_USERNAME@$SSH_HOST "docker stop $IMAGE_LABEL || true" # if stop command fails, don't exit the process
+    - ssh $SSH_USERNAME@$SSH_HOST "docker container rm $IMAGE_LABEL || true" # if stop command fails, don't exit the process
+    - ssh $SSH_USERNAME@$SSH_HOST "docker run -d --name $IMAGE_LABEL -p 8080:8080 -e DB_URL=jdbc:postgresql://172.31.39.102:5432/gamepass $IMAGE_NAME"
+  dependencies: # only run after build-job
+    - build-job
+  only:
+    - main

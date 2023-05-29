@@ -1,9 +1,16 @@
--- User Data (admin pass is 123456)
+-- User Data
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
-VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'admin@mail.com', 'Onur', 'Hızar',
-        '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'ADMIN', true,
+VALUES ('ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9', 'admin@mail.com', 'Onur', 'Hızar',
+        '$2a$10$qcBx2lYIfvJjbwEzQ2chxOL9B.5ydHBvShfOVP7a8nmNTySv6Dmju', 'ADMIN', true,
         '72014de5-1e02-4b31-b9f4-0792ce889b83', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
 
+
+INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
+VALUES ('ad2aefec-794e-4199-8983-c9fa8f40c383', 'mervan@mail.com', 'Hamit Mervan', 'Çelik',
+        '$2a$10$oE8Gimn418dNXTzmLRXpOOcxceZOZPqLxS4U1EX2XR1zYzVgq/6GO', 'ADMIN', true,
+        '103195dc-3049-42a7-bbf0-4371f78327f1', CURRENT_TIMESTAMP + INTERVAL '1 year', now(), now());
+
+-- password of rest is 123456
 INSERT INTO users (id, email, name, surname, password_hash, role, verified, verification_code, verification_code_expire_date, created_at, updated_at)
 VALUES ('aa59d163-5e7e-4290-b6ac-b901b0b4543a', 'test@mail.com', 'Test', 'User',
         '$2a$10$NjRTff/grP7d/87oE28BouNtRWto6WA6ApMHwGyqVDyMENh/msb4a', 'MEMBER', true,
@@ -105,15 +112,15 @@ VALUES ('1d063f5a-d1f5-4388-afb5-349464a79ac7', '1f9e9b57-4f30-4366-a00b-2199324
 
 -- User Interest : favorite games : users_games join table
 INSERT INTO users_games (user_id, game_id)
-VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'b4dceb23-d2ea-4432-aa7a-c71b4b15bcee'); -- admin favorite portal 3
+VALUES ('ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9', 'b4dceb23-d2ea-4432-aa7a-c71b4b15bcee'); -- admin favorite portal 3
 
 INSERT INTO users_games (user_id, game_id)
-VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', 'cbf27a05-9abe-40c0-a943-ede62f9ca3de'); -- admin favorites nfs mw
+VALUES ('ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9', 'cbf27a05-9abe-40c0-a943-ede62f9ca3de'); -- admin favorites nfs mw
 
 
 -- User Interest : following categories : users_categories join table
 INSERT INTO users_categories (user_id, category_id)
-VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', '66403305-972b-42b1-a71a-d7bb2828eebe'); -- admin follows PUZZLE
+VALUES ('ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9', '66403305-972b-42b1-a71a-d7bb2828eebe'); -- admin follows PUZZLE
 
 INSERT INTO users_categories (user_id, category_id)
-VALUES ('5b8a3d25-2b7a-4683-89ed-ac0e42cdc879', '50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4'); -- admin follows RACING
+VALUES ('ad1a1ddd-2f1c-4cc9-85ea-312dfc487bc9', '50a5fc87-4cbe-4b50-ac5a-acdd90bbfbf4'); -- admin follows RACING

@@ -11,6 +11,7 @@ import com.onurhizar.gamepass.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -116,16 +117,26 @@ public class CategoryService {
         stack.push(rootCategory); // then push self to stack
         return stack; // root node stays at the top of the stack, need to reverse it before using
     }
-
     
-    /** orphan removal logic, remove leaf nodes first then self */
+    public void deleteCategoryByAssignChildrenToGrandParent(String categoryId){
+        Category category = findCategoryById(categoryId);
+        Category parentCategory = category.getParent();
+        List<Category> childrenCategories = repository.findCategoriesByParentId(categoryId); // find children
+        for (Category childCategory : childrenCategories) {
+            childCategory.setParent(parentCategory); // assign children to grandparent
+            repository.save(childCategory);
+        }
+        deleteCategory(categoryId);
+    }
+
+    /* orphan removal logic, remove leaf nodes first then self
     public void deleteCategoryWithItsChildren(String categoryId){
         Stack<Category> stack = findAllChildrenCategories(categoryId);
         while (!stack.isEmpty()){
             deleteCategory(stack.pop().getId());
         }
     }
-
+    */
 
     /** Appends all games of children categories' games, if same game exists in the list, does not append */
     private List<Game> appendAllGamesFromChildrenCategories(String categoryId, List<Game> games){

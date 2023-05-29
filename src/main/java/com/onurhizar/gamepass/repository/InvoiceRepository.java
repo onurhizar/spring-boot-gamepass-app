@@ -10,6 +10,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice, String> {
     List<Invoice> findByCreatedAtBefore(ZonedDateTime time);
     List<Invoice> findByCreatedAtBeforeAndFeeIsNot(ZonedDateTime time, int fee);
 
+    /** Finds invoices for a user */
+    List<Invoice> findByContractRecordUserId(String userId);
 
     /** Finds invoices for a user that are not paid and past-due */
     List<Invoice> findByContractRecordUserIdAndFeeNotAndCreatedAtBefore(String userId, int fee, ZonedDateTime time);
