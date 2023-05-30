@@ -58,7 +58,7 @@ public class ScheduleService {
     }
 
     private void downgradeUsersToGuestStatus(HashSet<String> userIds){
-        for (String userId : userIds) userService.downgradeUserRoleToGuest(userId);
+        for (String userId : userIds) userService.downgradeNonAdminUserRoleToGuest(userId);
     }
 
 }

@@ -157,10 +157,15 @@ public class UserService {
         return user;
     }
 
-    public void downgradeUserRoleToGuest(String userId){
+    /** Disable downgrade logic for ADMIN users. Only regular members downgrade when unpaid invoices */
+    public void downgradeNonAdminUserRoleToGuest(String userId){
         User user = findById(userId);
-        user.setRole(UserRole.GUEST);
-        repository.save(user);
+        if (user == null) throw new EntityNotFoundException();
+
+        if (user.getRole() != UserRole.ADMIN) {
+            user.setRole(UserRole.GUEST);
+            repository.save(user);
+        }
     }
 
 }
