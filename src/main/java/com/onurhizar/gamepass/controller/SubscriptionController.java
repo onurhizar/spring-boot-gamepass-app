@@ -1,6 +1,5 @@
 package com.onurhizar.gamepass.controller;
 
-import com.onurhizar.gamepass.model.entity.Subscription;
 import com.onurhizar.gamepass.model.request.CreateSubscriptionRequest;
 import com.onurhizar.gamepass.model.request.UpdateSubscriptionRequest;
 import com.onurhizar.gamepass.model.response.SubscriptionResponse;

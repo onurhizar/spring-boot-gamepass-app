@@ -1,6 +1,5 @@
 package com.onurhizar.gamepass.controller;
 
-import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.response.CategoryResponse;
 import com.onurhizar.gamepass.model.response.GameResponse;
 import com.onurhizar.gamepass.model.response.UserResponse;

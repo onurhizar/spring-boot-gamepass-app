@@ -45,7 +45,7 @@ public class ScheduleService {
     private HashSet<String> findPastInvoicesAndExtractTheirUserIds(){
         HashSet<String> userIds = new HashSet<>();
 
-        List<Invoice> oldInvoices = invoiceService.findInvoicesBy15DaysOld(); // 15 days passed invoices // todo use 15 old
+        List<Invoice> oldInvoices = invoiceService.findInvoicesBy15DaysOld();
         log.info("Old Non Paid invoices: "+oldInvoices.size());
         for (Invoice invoice : oldInvoices) {
             log.info("Invoice: "+invoice);
