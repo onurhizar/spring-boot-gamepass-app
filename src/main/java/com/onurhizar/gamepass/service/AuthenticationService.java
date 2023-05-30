@@ -1,6 +1,7 @@
 package com.onurhizar.gamepass.service;
 
 import com.onurhizar.gamepass.exception.EntityNotFoundException;
+import com.onurhizar.gamepass.exception.UnacceptableRequestException;
 import com.onurhizar.gamepass.model.entity.User;
 import com.onurhizar.gamepass.model.enums.UserRole;
 import com.onurhizar.gamepass.model.request.auth.RegisterRequest;
@@ -44,7 +45,7 @@ public class AuthenticationService {
         // check if user exists before register
         User foundUser = userRepository.findByEmail(request.getEmail());
         if (foundUser != null)
-            throw new RuntimeException("User already exists"); // TODO specific exception
+            throw new UnacceptableRequestException("User already exists");
 
         User response = userRepository.save(user);
         String jwtToken = jwtService.generateToken(response);
@@ -81,7 +82,7 @@ public class AuthenticationService {
 
         // check if verification code is expired
         if (user.getVerificationCodeExpireDate().isBefore(ZonedDateTime.now()))
-            throw new RuntimeException("verification code is expired"); // TODO specific exception
+            throw new UnacceptableRequestException("verification code is expired");
 
         user.setVerified(true);
         userRepository.save(user);
@@ -107,7 +108,7 @@ public class AuthenticationService {
         // code duplication, TODO refactor?
         ZonedDateTime expireDate = user.getRecoveryCodeExpireDate();
         if (expireDate==null || expireDate.isBefore(ZonedDateTime.now()))
-            throw new RuntimeException("verification code is expired"); // TODO specific exception
+            throw new UnacceptableRequestException("verification code is expired");
 
         String newPassword = UUID.randomUUID().toString().substring(0,18);
         user.setPasswordHash(passwordEncoder.encode(newPassword));

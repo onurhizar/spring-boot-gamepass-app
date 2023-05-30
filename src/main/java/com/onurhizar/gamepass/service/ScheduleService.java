@@ -45,7 +45,7 @@ public class ScheduleService {
     private HashSet<String> findPastInvoicesAndExtractTheirUserIds(){
         HashSet<String> userIds = new HashSet<>();
 
-        List<Invoice> oldInvoices = invoiceService.findInvoicesBy15DaysOld(); // 15 days passed invoices // todo use 15 old
+        List<Invoice> oldInvoices = invoiceService.findInvoicesBy15DaysOld();
         log.info("Old Non Paid invoices: "+oldInvoices.size());
         for (Invoice invoice : oldInvoices) {
             log.info("Invoice: "+invoice);
@@ -58,7 +58,7 @@ public class ScheduleService {
     }
 
     private void downgradeUsersToGuestStatus(HashSet<String> userIds){
-        for (String userId : userIds) userService.downgradeUserRoleToGuest(userId);
+        for (String userId : userIds) userService.downgradeNonAdminUserRoleToGuest(userId);
     }
 
 }

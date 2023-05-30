@@ -28,7 +28,8 @@ public class UserService {
 
     public User addUser(CreateUserRequest request){
         User foundUser = repository.findByEmail(request.getEmail()); // check if email exists
-        if (foundUser != null) throw new RuntimeException("email exists"); // TODO make specific exception
+        if (foundUser != null) throw new UnacceptableRequestException("email exists");
+
 
         User newUser = User.builder()
                 .name(request.getName())
@@ -156,10 +157,15 @@ public class UserService {
         return user;
     }
 
-    public void downgradeUserRoleToGuest(String userId){
+    /** Disable downgrade logic for ADMIN users. Only regular members downgrade when unpaid invoices */
+    public void downgradeNonAdminUserRoleToGuest(String userId){
         User user = findById(userId);
-        user.setRole(UserRole.GUEST);
-        repository.save(user);
+        if (user == null) throw new EntityNotFoundException();
+
+        if (user.getRole() != UserRole.ADMIN) {
+            user.setRole(UserRole.GUEST);
+            repository.save(user);
+        }
     }
 
 }
